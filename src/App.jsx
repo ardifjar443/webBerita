@@ -16,8 +16,7 @@ function App() {
 
   return (
     <>
-      <div className=" min-h-screen bg-red-100 flex flex-col justify-center items-center">
-        <h1>Running in {import.meta.env.MODE}</h1>
+      <div className=" min-h-screen bg-gray-300 flex flex-col justify-center items-center">
         <Berita dataBerita={dataBerita} />
       </div>
     </>
