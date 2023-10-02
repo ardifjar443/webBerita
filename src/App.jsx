@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import "./App.css";
 import { getBerita } from "./api";
+import Berita from "./component/berita";
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
 
@@ -11,13 +12,13 @@ function App() {
     });
   }, []);
 
-  console.log(dataBerita);
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <div className=" min-h-screen bg-red-100 flex justify-center items-center">
+      <div className=" min-h-screen bg-red-100 flex flex-col justify-center items-center">
         <h1>Running in {import.meta.env.MODE}</h1>
+        <Berita dataBerita={dataBerita} />
       </div>
     </>
   );
