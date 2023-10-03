@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useState } from "react";
+
+let loading = true;
 
 export const getBerita = async () => {
   const berita = await axios.get(
@@ -6,6 +9,10 @@ export const getBerita = async () => {
       import.meta.env.VITE_BASE_URL_KEY
     }`
   );
-
+  loading = false;
   return berita.data.articles;
+};
+
+export const getLoading = () => {
+  return loading;
 };

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import "./App.css";
 import { getBerita } from "./api";
-import Berita from "./component/berita";
+import Berita from "./pages/berita";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ArticleDetail from "./component/ArticleDetail";
+import ArticleDetail from "./pages/ArticleDetail";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -21,15 +21,17 @@ function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Berita dataBerita={dataBerita} />} />
-        <Route
-          path="/article/:id"
-          element={<ArticleDetail data={dataBerita} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <div data-theme="light" style={{ overflowX: "hidden" }}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Berita dataBerita={dataBerita} />} />
+          <Route
+            path="/article/:id"
+            element={<ArticleDetail data={dataBerita} />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

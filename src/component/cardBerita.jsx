@@ -7,7 +7,15 @@ const CardBerita = (props) => {
   let hoverTimeout;
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (isHovered) {
+      setFade(true);
+      hoverTimeout = setTimeout(() => {
+        setIsHovered(false);
+        setFade(false);
+      }, 500);
+    } else {
+      setIsHovered(true);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -33,25 +41,25 @@ const CardBerita = (props) => {
   return (
     <>
       <div
-        className=" rounded-3xl bg-gray-200 bg-contain  bg-center hover:bg-cover relative transition-transform transform  hover:scale-110 flex p-5 animate__backInLeft "
+        className=" rounded-3xl bg-gray-200   bg-center bg-cover relative transition-transform transform  hover:scale-105 flex justify-center  p-5 animate__backInLeft "
         style={
           props.data.urlToImage && {
             backgroundImage: `url(${props.data.urlToImage}), url("https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png")`,
             transitionDuration: "0.5s",
           }
         }
-        onMouseEnter={handleMouseEnter}
+        onClick={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         <div
-          className={` flex  w-full  ${
-            isHovered ? "flex-col " : "flex-col-reverse "
+          className={` flex  w-full    ${
+            isHovered ? "flex-col  justify-center" : "flex-col-reverse "
           }`}
         >
           <div
             className={`transition-opacity relative transform animate__animated   ${
               !isHovered
-                ? "opacity-100 animate__flipInX  "
+                ? "opacity-90   "
                 : fade
                 ? " opacity-90 animate__flipOutY "
                 : " opacity-90 animate__flipInY "
@@ -64,7 +72,7 @@ const CardBerita = (props) => {
               </div>
 
               <div className="p-3 ">
-                <h2 className=" text-end">
+                <h2 className=" text-end font-semibold">
                   {formatDate(props.data.publishedAt)}
                 </h2>
               </div>
@@ -72,12 +80,12 @@ const CardBerita = (props) => {
           </div>
 
           <div
-            className={` bg-white p-4 mt-2 rounded-xl relative animate__animated ${
+            className={`  bg-white p-5 lg:p-20 mt-2 rounded-xl relative animate__animated ${
               !isHovered
-                ? "animate__flipOutX"
+                ? "opacity-90 animate__flipOutX"
                 : fade
-                ? "animate__flipOutX"
-                : "animate__flipInX"
+                ? "opacity-90 animate__flipOutX"
+                : "opacity-90 animate__flipInX"
             }`}
           >
             <div>
@@ -86,7 +94,7 @@ const CardBerita = (props) => {
             </div>
           </div>
           <div
-            className={` flex bg-white mt-2 rounded-xl relative animate__animated ${
+            className={` opacity-90 flex bg-white mt-2 rounded-xl relative animate__animated ${
               !isHovered
                 ? "animate__flipOutY"
                 : fade
@@ -95,7 +103,7 @@ const CardBerita = (props) => {
             }`}
           >
             <Link
-              className="w-full rounded-xl text-white font-bold text-center  p-2 bg-blue-500 hover:bg-blue-600"
+              className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-blue-500 hover:bg-blue-600 "
               to={`/article/${props.index}`}
             >
               View News
