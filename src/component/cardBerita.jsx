@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CardBerita = (props) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -16,7 +17,7 @@ const CardBerita = (props) => {
       setFade(false);
     }, 500);
   };
-  console.log(props);
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -93,13 +94,12 @@ const CardBerita = (props) => {
                 : "animate__flipInY"
             }`}
           >
-            <a
+            <Link
               className="w-full rounded-xl text-white font-bold text-center  p-2 bg-blue-500 hover:bg-blue-600"
-              href={props.data.url}
-              target="_blank"
+              to={`/article/${props.index}`}
             >
               View News
-            </a>
+            </Link>
           </div>
         </div>
       </div>

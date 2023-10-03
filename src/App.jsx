@@ -3,23 +3,33 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getBerita } from "./api";
 import Berita from "./component/berita";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ArticleDetail from "./component/ArticleDetail";
+
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
 
   useEffect(() => {
     getBerita().then((result) => {
-      setDataBerita(result);
+      const filteredBerita = result.filter(
+        (item) => item.title !== "[Removed]"
+      );
+      setDataBerita(filteredBerita);
     });
   }, []);
 
   const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div className=" min-h-screen bg-gray-300 flex flex-col justify-center items-center">
-        <Berita dataBerita={dataBerita} />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Berita dataBerita={dataBerita} />} />
+        <Route
+          path="/article/:id"
+          element={<ArticleDetail data={dataBerita} />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

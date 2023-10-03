@@ -9,7 +9,7 @@ const Berita = (props) => {
             key={index}
             className=" rounded-t-3xl rounded-bl-3xl min-h-fit   transform transition duration-500 m-5 animate__backInLeft "
           >
-            <CardBerita data={items} />
+            <CardBerita data={items} index={index} />
           </div>
         ))}
       </div>
