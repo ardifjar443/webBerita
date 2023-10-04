@@ -9,8 +9,12 @@ const Berita = (props) => {
   return (
     <>
       <Jumbtron dataBerita={props.dataBerita} />
-
-      <Sorting />
+      <div className="">
+        <CarouselBerita data={props.dataBerita} />
+      </div>
+      <div id="berita">
+        <Sorting />
+      </div>
 
       {!getLoading() && (
         <div className=" grid grid-cols-1 md:grid-cols-2 gap-4 p-10 ">

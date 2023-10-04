@@ -138,7 +138,7 @@ const Jumbtron = (props) => {
                 <polyline points="17 8 17 17 8 17" />
               </svg>
             </div>
-            <div className=" h-full flex px-20">
+            <div className=" h-full flex p-5">
               {/* <CarouselBerita data={props.dataBerita} /> */}
               <CardBerita data={props.dataBerita[0]} />
             </div>
