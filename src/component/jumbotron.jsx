@@ -24,8 +24,8 @@ const Jumbtron = (props) => {
     }, 1000);
   };
   return (
-    <div className="flex flex-col md:lg-flex-col lg:flex-row p-4 min-h-screen">
-      <div className=" flex flex-col justify-center items-center ">
+    <div className="flex flex-col md:lg-flex-col lg:flex-row p-4 min-h-screen ">
+      <div className=" flex flex-col justify-center items-center m-20">
         {!isHovered ? (
           <div
             className={` bg-primary text-info p-5 rounded-lg animate__animated flex flex-col  justify-center  ${
@@ -36,7 +36,7 @@ const Jumbtron = (props) => {
           >
             <div>
               <span
-                className=" font-bold font-serif"
+                className=" font-bold font-serif "
                 style={{ fontSize: "40px" }}
               >
                 ArdiFjar443

@@ -19,7 +19,7 @@ const Navbar = (props) => {
       setDisplayStyle2("form-control animate__animated  animate__bounceOut");
       setTimeout(() => {
         setDisplayStyle("form-control animate__animated  animate__bounceIn");
-        setDisplayStyle2("form-control animate__animated  animate__bounceIn");
+        setDisplayStyle2("form-control animate__animated  animate__bounceIn ");
       }, 1000);
     }
   }, [props.isVisible]);
@@ -29,13 +29,12 @@ const Navbar = (props) => {
         className="navbar bg-primary shadow-md rounded-b-3xl "
         style={{ transition: "1s" }}
       >
-        <div className="flex-1 items-start p-2">
+        <div className="flex items-start p-2 titleWeb ">
           <a className="btn btn-ghost normal-case text-xl text-info">
             ArdiFjar443
           </a>
-          <p className="text-info">.News</p>
         </div>
-        <div className="flex-none gap-2">
+        <div className="flex  w-full justify-end gap-2">
           {!props.isVisible ? (
             <>
               <div className={displayStyle2}>
