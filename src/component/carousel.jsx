@@ -20,7 +20,6 @@ const CarouselBerita = (props) => {
         prevArrow={({ handlePrev }) => (
           <IconButton
             variant="text"
-            color="black"
             size="lg"
             onClick={handlePrev}
             className="!absolute top-2/4 left-4 -translate-y-2/4 bg-black text-white hover:bg-white hover:text-black"
@@ -84,12 +83,12 @@ const CarouselBerita = (props) => {
             <CardBerita data={props.data[data]} index={data} />
           </div>
         ))}
-        <div className="flex justify-center items-center align-middle  h-96 m-10">
-          <div className="bg-black min-h-fit text-white p-10 rounded-2xl text-3xl w-1/2 flex flex-col justify-end items-end">
+        <div className="flex justify-center items-center align-middle  h-96">
+          <div className="bg-black min-h-fit text-white p-5 rounded-2xl text-3xl w-1/2 flex flex-col justify-end items-end">
             <p className=" w-full font-bold">Lihat Berita</p>
             <p className=" w-full text-center font-bold">Lebih Lengkap</p>
             <a
-              className="bg-white text-black text-center rounded-lg hover:bg-gray-500 p-1 w-1/4"
+              className="bg-white text-black text-center rounded-lg hover:bg-gray-500 p-1 "
               href="#berita"
             >
               Lihat

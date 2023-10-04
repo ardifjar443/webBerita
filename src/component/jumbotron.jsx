@@ -140,7 +140,7 @@ const Jumbtron = (props) => {
             </div>
             <div className=" h-full flex p-5">
               {/* <CarouselBerita data={props.dataBerita} /> */}
-              <CardBerita data={props.dataBerita[0]} />
+              <CardBerita data={props.dataBerita[0]} index={0} />
             </div>
           </div>
         ) : (

@@ -5,6 +5,7 @@ import { getBerita } from "./api";
 import Berita from "./pages/berita";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ArticleDetail from "./pages/ArticleDetail";
+import Navbar from "./component/navbar";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <div data-theme="light" style={{ overflowX: "hidden" }}>
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Berita dataBerita={dataBerita} />} />
