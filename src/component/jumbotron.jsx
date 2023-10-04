@@ -28,11 +28,11 @@ const Jumbtron = (props) => {
       <div className=" flex flex-col justify-center items-center ">
         {!isHovered ? (
           <div
-            className={`bg-black text-white p-5 rounded-lg animate__animated flex flex-col  justify-center  ${
+            className={` bg-primary text-info p-5 rounded-lg animate__animated flex flex-col  justify-center  ${
               !fade ? "opacity-90  animate__rollIn " : "animate__rollOut"
             }`}
             onClick={handleMouseEnter}
-            style={{ width: "300px", height: "200px" }}
+            style={{ width: "300px", height: "200px", transition: "1s" }}
           >
             <div>
               <span
@@ -53,10 +53,10 @@ const Jumbtron = (props) => {
           </div>
         ) : (
           <div
-            className={`bg-black text-white p-5 rounded-lg animate__animated   ${
+            className={`bg-primary text-info p-5 rounded-lg animate__animated   ${
               fade ? " opacity-90 animate__rollOut  " : "animate__rollIn"
             }`}
-            style={{ width: "300px", height: "200px" }}
+            style={{ width: "300px", height: "200px", transition: "1s" }}
             onClick={handleMouseLeave}
           >
             <div>
@@ -76,7 +76,7 @@ const Jumbtron = (props) => {
                   <a
                     href="https://github.com/ardifjar443"
                     target="_blank"
-                    className="hover:bg-white hover:text-black p-2 rounded-full"
+                    className="hover:bg-info hover:text-primary p-2 rounded-full"
                   >
                     <svg
                       className="w-10 "

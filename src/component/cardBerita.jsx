@@ -41,7 +41,7 @@ const CardBerita = (props) => {
   return (
     <>
       <div
-        className=" rounded-3xl bg-gray-200   bg-center bg-cover relative transition-transform transform  hover:scale-105 flex justify-center  p-5 animate__backInLeft "
+        className=" rounded-3xl bg-gray-200   bg-center bg-cover relative transition-transform transform  flex justify-center  p-5 animate__backInLeft "
         style={
           props.data.urlToImage && {
             backgroundImage: `url(${props.data.urlToImage}), url("https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png")`,
@@ -59,14 +59,17 @@ const CardBerita = (props) => {
           <div
             className={`transition-opacity relative transform animate__animated   ${
               !isHovered
-                ? "opacity-90   "
+                ? "opacity-80   "
                 : fade
-                ? " opacity-90 animate__flipOutY "
-                : " opacity-90 animate__flipInY "
+                ? " opacity-80 animate__flipOutY "
+                : " opacity-80 animate__flipInY "
             } `}
             style={{ transitionDuration: "2.5s" }}
           >
-            <div className="rounded-2xl bg-white     ">
+            <div
+              className="rounded-2xl bg-primary text-info   "
+              style={{ transition: "1s" }}
+            >
               <div className="p-4  ">
                 <h1>{props.data.title}</h1>
               </div>
@@ -80,7 +83,7 @@ const CardBerita = (props) => {
           </div>
 
           <div
-            className={`  bg-white p-5 lg:p-20 mt-2 rounded-xl relative animate__animated ${
+            className={`  bg-primary p-5 lg:p-20 mt-2 rounded-xl relative animate__animated ${
               !isHovered
                 ? "opacity-90 animate__flipOutX"
                 : fade
@@ -89,8 +92,8 @@ const CardBerita = (props) => {
             }`}
           >
             <div>
-              <p>description:</p>
-              <p className="text-black">{props.data.description}</p>
+              <p className="text-info">description:</p>
+              <p className="text-success">{props.data.description}</p>
             </div>
           </div>
           <div
@@ -103,7 +106,7 @@ const CardBerita = (props) => {
             }`}
           >
             <Link
-              className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-blue-500 hover:bg-blue-600 "
+              className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-[#ff8906] hover:bg-[#ff8b06ec] "
               to={`/article/${props.index}`}
             >
               View News
