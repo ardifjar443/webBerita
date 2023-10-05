@@ -5,6 +5,7 @@ const CardBerita = (props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [fade, setFade] = useState(false);
   let hoverTimeout;
+  const id = props.data.title.split(" ").slice(0, 4).join("-");
 
   const handleMouseEnter = () => {
     if (isHovered) {
@@ -107,7 +108,7 @@ const CardBerita = (props) => {
           >
             <Link
               className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-[#ff8906] hover:bg-[#ff8b06ec] "
-              to={`/article/${props.index}`}
+              to={`/article/${id}`}
             >
               View News
             </Link>

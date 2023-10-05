@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   const [displayStyle, setDisplayStyle] = useState("block");
@@ -23,6 +24,8 @@ const Navbar = (props) => {
       }, 1000);
     }
   }, [props.isVisible]);
+
+  const [cari, setCari] = useState("Search");
   return (
     <>
       <div
@@ -40,12 +43,28 @@ const Navbar = (props) => {
               <div className={displayStyle2}>
                 <input
                   type="text"
-                  placeholder="Search"
                   className="input input-bordered w-24 md:w-auto"
+                  value={cari}
+                  onChange={(e) => {
+                    setCari(e.target.value);
+                  }}
+                  onClick={() => {
+                    if (cari === "Search") {
+                      setCari("");
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (cari === "") {
+                      setCari("Search");
+                    }
+                  }}
                 />
               </div>
               <div className={displayStyle2}>
-                <button className="btn text-info hover:text-primary-focus bg-primary hover:bg-info">
+                <a
+                  className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
+                  href={`/search/${cari}`}
+                >
                   <svg
                     className="w-5 h-5 "
                     viewBox="0 0 24 24"
@@ -59,7 +78,7 @@ const Navbar = (props) => {
                     <circle cx="11" cy="11" r="8" />{" "}
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
-                </button>
+                </a>
               </div>
               <div className={displayStyle}>
                 <button
@@ -89,12 +108,28 @@ const Navbar = (props) => {
               <div className={displayStyle2}>
                 <input
                   type="text"
-                  placeholder="Search"
                   className="input input-bordered w-24 md:w-auto"
+                  value={cari}
+                  onChange={(e) => {
+                    setCari(e.target.value);
+                  }}
+                  onClick={() => {
+                    if (cari === "Search") {
+                      setCari("");
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (cari === "") {
+                      setCari("Search");
+                    }
+                  }}
                 />
               </div>
               <div className={displayStyle2}>
-                <button className="btn text-info hover:text-primary-focus bg-primary hover:bg-info">
+                <a
+                  className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
+                  href={`/search/${cari}`}
+                >
                   <svg
                     className="w-5 h-5 "
                     viewBox="0 0 24 24"
@@ -108,7 +143,7 @@ const Navbar = (props) => {
                     <circle cx="11" cy="11" r="8" />{" "}
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
-                </button>
+                </a>
               </div>
 
               <div
