@@ -12,23 +12,7 @@ import Search from "./pages/search";
 
 function App() {
   const [tema, setTema] = useState("myLight");
-  const [dataBerita, setDataBerita] = useState([]);
-  const [state, setState] = useState("us");
-  setNegara(state);
-
-  useEffect(() => {
-    getBerita().then((result) => {
-      if (result !== "Tidak ada Data") {
-        const filteredBerita = result.filter(
-          (item) => item.title !== "[Removed]"
-        );
-        setDataBerita(filteredBerita);
-      }
-    });
-  }, []);
-
   const [isVisible, setIsVisible] = useState(false);
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -84,7 +68,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/article/:id" element={<Article />} />
-          <Route path="/" element={<Berita dataBerita={dataBerita} />} />
+          <Route path="/" element={<Berita />} />
           <Route path="/search/:cari" element={<Search />} />
         </Routes>
       </BrowserRouter>

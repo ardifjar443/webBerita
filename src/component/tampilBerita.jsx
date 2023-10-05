@@ -2,6 +2,7 @@ import { getLoading } from "../api";
 import CardBerita from "./cardBerita";
 
 const TampilBerita = (props) => {
+  console.log(props);
   return (
     <>
       {" "}

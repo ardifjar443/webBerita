@@ -1,22 +1,36 @@
 import CardBerita from "../component/cardBerita";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CarouselBerita from "../component/carousel";
 
 import Sorting from "../component/sorting";
 import Jumbtron from "../component/jumbotron";
 import TampilBerita from "../component/tampilBerita";
 import Pagination from "../component/pagination";
-import { getLoading } from "../api";
+import { getBerita, getLoading, setNegara } from "../api";
 
-const Berita = (props) => {
+const Berita = () => {
+  const [dataBerita, setDataBerita] = useState([]);
+  console.log(dataBerita);
+
+  useEffect(() => {
+    getBerita().then((result) => {
+      if (result !== "Tidak ada Data") {
+        const filteredBerita = result.filter(
+          (item) => item.title !== "[Removed]"
+        );
+        setDataBerita(filteredBerita);
+        console.log("berhasil");
+      }
+    });
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 6;
-  const totalContent = props.dataBerita.length;
+  const totalContent = dataBerita.length;
   const totalPages = Math.ceil(totalContent / contentPerPage);
 
   const indexOfLastContent = currentPage * contentPerPage;
   const indexOfFirstContent = indexOfLastContent - contentPerPage;
-  const currentContent = props.dataBerita.slice(
+  const currentContent = dataBerita.slice(
     indexOfFirstContent,
     indexOfLastContent
   );
@@ -27,11 +41,11 @@ const Berita = (props) => {
 
   return (
     <>
-      <Jumbtron dataBerita={props.dataBerita} />
+      <Jumbtron dataBerita={dataBerita} />
       {!getLoading() && (
         <>
           <div className="">
-            <CarouselBerita data={props.dataBerita} />
+            <CarouselBerita data={dataBerita} />
           </div>
           <div id="berita">
             <Sorting />

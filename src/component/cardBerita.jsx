@@ -5,7 +5,7 @@ const CardBerita = (props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [fade, setFade] = useState(false);
   let hoverTimeout;
-  const id = props.data.title.split(" ").slice(0, 4).join("-");
+  const id = props.data.title.split(" ").slice(0, 8).join("-");
 
   const handleMouseEnter = () => {
     if (isHovered) {
@@ -17,6 +17,13 @@ const CardBerita = (props) => {
     } else {
       setIsHovered(true);
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const handleMouseLeave = () => {
@@ -109,6 +116,7 @@ const CardBerita = (props) => {
             <Link
               className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-[#ff8906] hover:bg-[#ff8b06ec] "
               to={`/article/${id}`}
+              onClick={scrollToTop}
             >
               View News
             </Link>
