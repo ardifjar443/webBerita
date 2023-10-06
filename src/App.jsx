@@ -12,9 +12,14 @@ import Search from "./pages/search";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
+  const [error, setError] = useState(null);
   useEffect(() => {
     getBerita().then((result) => {
-      setDataBerita(result.data);
+      if (result.code !== "ERR_BAD_REQUEST") {
+        setDataBerita(result.data);
+      } else {
+        setError(result);
+      }
     });
   }, []);
   const [tema, setTema] = useState("myLight");
@@ -73,7 +78,10 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Berita dataBerita={dataBerita} />} />
+          <Route
+            path="/"
+            element={<Berita dataBerita={dataBerita} error={error} />}
+          />
           <Route path="/article/:id" element={<Article />} />
           <Route path="/search/:cari" element={<Search />} />
         </Routes>
