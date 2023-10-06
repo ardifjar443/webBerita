@@ -52,7 +52,7 @@ const CardBerita = (props) => {
         className=" rounded-3xl bg-gray-200   bg-center bg-cover relative transition-transform transform  flex justify-center  p-5 animate__backInLeft "
         style={
           props.data.urlToImage && {
-            backgroundImage: `url(${props.data.urlToImage}), url("https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png")`,
+            backgroundImage: `url(${props.data.imgUrl}), url("https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png")`,
             transitionDuration: "0.5s",
           }
         }
@@ -83,9 +83,7 @@ const CardBerita = (props) => {
               </div>
 
               <div className="p-3 ">
-                <h2 className=" text-end font-semibold">
-                  {formatDate(props.data.publishedAt)}
-                </h2>
+                <h2 className=" text-end font-semibold">{props.data.upload}</h2>
               </div>
             </div>
           </div>
@@ -101,7 +99,7 @@ const CardBerita = (props) => {
           >
             <div>
               <p className="text-info">description:</p>
-              <p className="text-success">{props.data.description}</p>
+              <p className="text-success">{props.data.deskripsi}</p>
             </div>
           </div>
           <div
@@ -115,7 +113,7 @@ const CardBerita = (props) => {
           >
             <Link
               className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-[#ff8906] hover:bg-[#ff8b06ec] "
-              to={`/article/${id}`}
+              to={`/article/${props.data.id}`}
               onClick={scrollToTop}
             >
               View News

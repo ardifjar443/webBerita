@@ -7,20 +7,17 @@ import Jumbtron from "../component/jumbotron";
 import TampilBerita from "../component/tampilBerita";
 import Pagination from "../component/pagination";
 import { getBerita, getLoading, setNegara } from "../api";
+import { data } from "autoprefixer";
 
 const Berita = () => {
   const [dataBerita, setDataBerita] = useState([]);
-  console.log(dataBerita);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getBerita().then((result) => {
-      if (result !== "Tidak ada Data") {
-        const filteredBerita = result.filter(
-          (item) => item.title !== "[Removed]"
-        );
-        setDataBerita(filteredBerita);
-        console.log("berhasil");
-      }
+      console.log(result.data.length);
+      setDataBerita(result.data);
+      console.log(dataBerita);
     });
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,14 +36,13 @@ const Berita = () => {
     setCurrentPage(pageNumber);
   };
 
+  console.log("DATA BERITA:" + dataBerita);
   return (
     <>
-      <Jumbtron dataBerita={dataBerita} />
+      <Jumbtron dataBerita={dataBerita} error={error} />
       {!getLoading() && (
         <>
-          <div className="">
-            <CarouselBerita data={dataBerita} />
-          </div>
+          <div className="">{/* <CarouselBerita data={dataBerita} /> */}</div>
           <div id="berita">
             <Sorting />
           </div>

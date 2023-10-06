@@ -4,21 +4,18 @@ let loading = true;
 
 let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
-  console.log("berita:" + endPoint);
-  const berita = await axios.get(
-    `${import.meta.env.VITE_BASE_URL}${endPoint}&apiKey=${
-      import.meta.env.VITE_BASE_URL_KEY
-    }`
-  );
-  loading = false;
+  try {
+    const berita = await axios.get(`${import.meta.env.VITE_BASE_URL}`);
+    loading = false;
 
-  if (berita.data.totalResults === 0) {
-    return "Tidak ada Data";
+    console.log(berita.data.data);
+    return berita.data;
+  } catch (error) {
+    // Tangani kesalahan di sini
+
+    return error; // Atau Anda dapat mengembalikan nilai atau status kesalahan khusus
   }
-
-  return berita.data.articles;
 };
-
 export const setSearch = (id) => {
   endPoint = "/everything?q=" + id;
 };
@@ -30,23 +27,17 @@ export const getLoading = () => {
 export const article = async (id) => {
   // console.log("article: " + endPoint);
   const berita = await axios.get(
-    `${import.meta.env.VITE_BASE_URL}${endPoint}&apiKey=${
-      import.meta.env.VITE_BASE_URL_KEY
-    }`
+    `${
+      import.meta.env.VITE_BASE_URL
+    }?query=select * from yAs1kypTkYL4b5rn where id='${id}'`
   );
+  console.log(berita.data.data[0]);
   loading = false;
-  for (let i = 0; i < berita.data.articles.length; i++) {
-    let data = berita.data.articles[i];
-    // console.log(i + "." + data.title.split(" ").slice(0, 8).join("-"));
-    if (data.title.split(" ").slice(0, 8).join("-") === id) {
-      // console.log("berhasil");
-      return data;
-    }
-  }
+
   // console.log("gagal");
   // console.log("cari: " + id);
 
-  return "gagal";
+  return berita.data.data[0];
 };
 
 export const setNegara = (id) => {

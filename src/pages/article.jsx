@@ -35,10 +35,10 @@ const Article = (props) => {
     article(id).then((result) => {
       if (result !== "gagal") {
         setTitle(result.title);
-        setPublis(result.publishedAt);
-        setSource(result.source.name);
-        setImg(result.urlToImage);
-        setDeskripsi(result.description);
+        setPublis(result.upload);
+        setSource(result.author);
+        setImg(result.imgUrl);
+        setDeskripsi(result.deskripsi);
         setContent(result.content);
       }
     });
@@ -52,7 +52,7 @@ const Article = (props) => {
             <div className=" w-full mx-10 mt-24">
               <div>
                 <h1 className=" text-xl font-bold">{title}</h1>
-                <p className="text-lg">{formatDate(publis)}</p>
+                <p className="text-lg">{publis}</p>
                 <p>source: {source}</p>
               </div>
               <div className="w-full flex  justify-center mt-10 ">

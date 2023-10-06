@@ -144,8 +144,15 @@ const Jumbtron = (props) => {
             </div>
           </div>
         ) : (
-          <div className=" w-full flex justify-center   ">
+          <div className=" w-full flex flex-col justify-center items-center gap-4  ">
             <span className="loading loading-dots loading-lg"></span>
+            {props.error && (
+              <>
+                <span className="bg-primary text-info p-3 text-lg rounded-lg ">
+                  {props.error}
+                </span>
+              </>
+            )}
           </div>
         )}
       </div>
