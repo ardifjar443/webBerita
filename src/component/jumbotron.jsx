@@ -150,7 +150,7 @@ const Jumbtron = (props) => {
             {props.error && (
               <>
                 <span className="bg-primary text-info p-3 text-lg rounded-lg ">
-                  {props.error.response.data.error}
+                  API said :{" " + props.error.response.data.error}
                 </span>
               </>
             )}
