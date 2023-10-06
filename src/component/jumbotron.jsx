@@ -23,7 +23,7 @@ const Jumbtron = (props) => {
       setFade(false);
     }, 1000);
   };
-  console.log(props.error);
+
   return (
     <div className="flex flex-col md:lg-flex-col lg:flex-row p-4 min-h-screen ">
       <div className=" flex flex-col justify-center items-center m-20">
