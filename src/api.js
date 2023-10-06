@@ -8,7 +8,6 @@ export const getBerita = async () => {
     const berita = await axios.get(`${import.meta.env.VITE_BASE_URL}`);
     loading = false;
 
-    console.log(berita.data.data);
     return berita.data;
   } catch (error) {
     // Tangani kesalahan di sini

@@ -9,25 +9,17 @@ import Pagination from "../component/pagination";
 import { getBerita, getLoading, setNegara } from "../api";
 import { data } from "autoprefixer";
 
-const Berita = () => {
-  const [dataBerita, setDataBerita] = useState([]);
+const Berita = (props) => {
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    getBerita().then((result) => {
-      console.log(result.data.length);
-      setDataBerita(result.data);
-      console.log(dataBerita);
-    });
-  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 6;
-  const totalContent = dataBerita.length;
+  const totalContent = props.dataBerita.length;
   const totalPages = Math.ceil(totalContent / contentPerPage);
 
   const indexOfLastContent = currentPage * contentPerPage;
   const indexOfFirstContent = indexOfLastContent - contentPerPage;
-  const currentContent = dataBerita.slice(
+  const currentContent = props.dataBerita.slice(
     indexOfFirstContent,
     indexOfLastContent
   );
@@ -36,13 +28,14 @@ const Berita = () => {
     setCurrentPage(pageNumber);
   };
 
-  console.log("DATA BERITA:" + dataBerita);
   return (
     <>
-      <Jumbtron dataBerita={dataBerita} error={error} />
+      <Jumbtron dataBerita={props.dataBerita} error={error} />
       {!getLoading() && (
         <>
-          <div className="">{/* <CarouselBerita data={dataBerita} /> */}</div>
+          <div className="">
+            <CarouselBerita data={props.dataBerita} />
+          </div>
           <div id="berita">
             <Sorting />
           </div>

@@ -5,10 +5,19 @@ const CarouselBerita = (props) => {
   const dataBerita = [];
 
   if (props.data.length !== 0) {
-    while (dataBerita.length < 3) {
-      const randomIndex = Math.floor(Math.random() * props.data.length);
-      if (!dataBerita.includes(randomIndex)) {
-        dataBerita.push(randomIndex);
+    if (props.data.length < 3) {
+      while (dataBerita.length < props.data.length) {
+        const randomIndex = Math.floor(Math.random() * props.data.length);
+        if (!dataBerita.includes(randomIndex)) {
+          dataBerita.push(randomIndex);
+        }
+      }
+    } else {
+      while (dataBerita.length < 3) {
+        const randomIndex = Math.floor(Math.random() * props.data.length);
+        if (!dataBerita.includes(randomIndex)) {
+          dataBerita.push(randomIndex);
+        }
       }
     }
   }

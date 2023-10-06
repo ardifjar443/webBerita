@@ -11,6 +11,12 @@ import Article from "./pages/article";
 import Search from "./pages/search";
 
 function App() {
+  const [dataBerita, setDataBerita] = useState([]);
+  useEffect(() => {
+    getBerita().then((result) => {
+      setDataBerita(result.data);
+    });
+  }, []);
   const [tema, setTema] = useState("myLight");
   const [isVisible, setIsVisible] = useState(false);
   const scrollToTop = () => {
@@ -67,8 +73,8 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Berita dataBerita={dataBerita} />} />
           <Route path="/article/:id" element={<Article />} />
-          <Route path="/" element={<Berita />} />
           <Route path="/search/:cari" element={<Search />} />
         </Routes>
       </BrowserRouter>
