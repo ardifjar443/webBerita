@@ -117,9 +117,9 @@ const Jumbtron = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full items-center justify-center align-middle   ">
+      <div className="flex w-full p-10  items-center justify-center align-middle   ">
         {!getLoading() ? (
-          <div className="h-3/4   ">
+          <div className=" flex w-full  flex-col items-center justify-center   ">
             <div className="flex font-bold lg:justify-center ">
               <p className="text-lg">Click</p>
               <svg
@@ -139,13 +139,15 @@ const Jumbtron = (props) => {
                 <polyline points="17 8 17 17 8 17" />
               </svg>
             </div>
-            <div className=" h-full flex p-5">
+            <div className="flex justify-center items-center h-full w-full  ">
               {/* <CarouselBerita data={props.dataBerita} /> */}
-              <CardBerita data={props.dataBerita[0]} index={0} />
+              <div className=" w-full ">
+                <CardBerita data={props.dataBerita[0]} index={0} />
+              </div>
             </div>
           </div>
         ) : (
-          <div className=" w-full flex flex-col justify-center items-center gap-4  ">
+          <div className=" w-full flex flex-col justify-center items-center gap-4   ">
             <span className="loading loading-dots loading-lg"></span>
             {props.error && (
               <>

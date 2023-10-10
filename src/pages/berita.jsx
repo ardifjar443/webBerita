@@ -11,6 +11,7 @@ import { data } from "autoprefixer";
 
 const Berita = (props) => {
   const [error, setError] = useState(null);
+  console.log(props);
 
   const [currentPage, setCurrentPage] = useState(1);
   const contentPerPage = 6;

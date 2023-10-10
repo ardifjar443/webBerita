@@ -33,16 +33,20 @@ const Article = (props) => {
 
   useEffect(() => {
     article(id).then((result) => {
+      console.log(result);
       if (result !== "gagal") {
         setTitle(result.title);
         setPublis(result.upload);
         setSource(result.author);
-        setImg(result.imgUrl);
+        setImg(result.foto);
         setDeskripsi(result.deskripsi);
         setContent(result.content);
+        // Ubah data blob ke tipe Uint8Array
       }
     });
   }, []);
+
+  console.log(img);
 
   return (
     <>
@@ -58,7 +62,11 @@ const Article = (props) => {
               <div className="w-full flex  justify-center mt-10 ">
                 <div className="w-3/4 flex flex-col gap-4">
                   <div className="flex justify-center">
-                    <img src={img} alt="image" className="w-3/4" />
+                    <img
+                      src={import.meta.env.VITE_BASE_URL + img}
+                      alt="image"
+                      className="w-3/4"
+                    />
                   </div>
                   <span>{deskripsi}</span>
                   <span>{content}</span>

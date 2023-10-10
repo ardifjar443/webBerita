@@ -7,12 +7,15 @@ let pesan = "berhasil";
 let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
   try {
-    const berita = await axios.get(`${import.meta.env.VITE_BASE_URL}`);
+    const berita = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/api/berita`
+    );
     loading = false;
 
     return berita.data;
   } catch (error) {
     // Tangani kesalahan di sini
+    console.log(error);
 
     return error; // Atau Anda dapat mengembalikan nilai atau status kesalahan khusus
   }
@@ -32,17 +35,15 @@ export const getUploadLoading = () => {
 export const article = async (id) => {
   // console.log("article: " + endPoint);
   const berita = await axios.get(
-    `${
-      import.meta.env.VITE_BASE_URL
-    }?query=select * from yAs1kypTkYL4b5rn where id='${id}'`
+    `${import.meta.env.VITE_BASE_URL}/api/berita/${id}`
   );
-  console.log(berita.data.data[0]);
+  console.log(berita.data);
   loading = false;
 
   // console.log("gagal");
   // console.log("cari: " + id);
 
-  return berita.data.data[0];
+  return berita.data;
 };
 
 export const setNegara = (id) => {
@@ -55,7 +56,7 @@ export const UploadBerita = async (form) => {
 
   try {
     const uploads = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/berita`,
+      `${import.meta.env.VITE_BASE_URL}/api/berita`,
       form
     );
     upload = false;

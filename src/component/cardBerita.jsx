@@ -46,13 +46,16 @@ const CardBerita = (props) => {
     };
     return new Date(dateString).toLocaleString("en-US", options);
   };
+  console.log(import.meta.env.VITE_BASE_UR + props.data.foto);
   return (
     <>
       <div
         className=" rounded-3xl bg-gray-200   bg-center bg-cover relative transition-transform transform  flex justify-center  p-5 animate__backInLeft "
         style={
-          props.data.urlToImage && {
-            backgroundImage: `url(${props.data.imgUrl}), url("https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png")`,
+          props.data.foto && {
+            backgroundImage: `url(${
+              "http://localhost:8000" + props.data.foto
+            })`,
             transitionDuration: "0.5s",
           }
         }

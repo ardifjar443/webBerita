@@ -17,7 +17,8 @@ function App() {
   useEffect(() => {
     getBerita().then((result) => {
       if (result.code !== "ERR_BAD_REQUEST") {
-        setDataBerita(result.data);
+        console.log(result);
+        setDataBerita(result);
       } else {
         setError(result);
       }
