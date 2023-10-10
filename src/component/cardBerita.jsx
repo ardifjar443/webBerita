@@ -46,11 +46,7 @@ const CardBerita = (props) => {
     };
     return new Date(dateString).toLocaleString("en-US", options);
   };
-  console.log(
-    "https://github.com/ardifjar443/backendWebBerita/blob/025dda22e91a9fe5ea08cfc082d06cd3bfe391e2/public" +
-      props.data.foto +
-      "?raw=true"
-  );
+
   return (
     <>
       <div

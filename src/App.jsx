@@ -26,7 +26,7 @@ function App() {
         setIsHtml(false);
         if (result.code !== "ERR_BAD_REQUEST") {
           console.log(result);
-          setDataBerita(result.data);
+          setDataBerita(result.data.reverse());
         } else {
           setError(result);
         }
