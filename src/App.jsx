@@ -9,6 +9,7 @@ import Footer from "./component/Footer";
 import ScrollButton from "./component/scrollButton";
 import Article from "./pages/article";
 import Search from "./pages/search";
+import Upload from "./pages/uploadBerita";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -84,6 +85,7 @@ function App() {
           />
           <Route path="/article/:id" element={<Article />} />
           <Route path="/search/:cari" element={<Search />} />
+          <Route path="/upload" element={<Upload />}></Route>
         </Routes>
       </BrowserRouter>
       <Footer />

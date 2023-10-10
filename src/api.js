@@ -1,6 +1,8 @@
 import axios from "axios";
 
 let loading = true;
+let upload = false;
+let pesan = "berhasil";
 
 let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
@@ -23,6 +25,10 @@ export const getLoading = () => {
   return loading;
 };
 
+export const getUploadLoading = () => {
+  return upload;
+};
+
 export const article = async (id) => {
   // console.log("article: " + endPoint);
   const berita = await axios.get(
@@ -42,4 +48,16 @@ export const article = async (id) => {
 export const setNegara = (id) => {
   console.log("berubvah");
   endPoint = "/top-headlines?country=" + id;
+};
+
+export const UploadBerita = async (form) => {
+  upload = true;
+
+  try {
+    const upload = await axios.post("http://localhost:8000/api/berita", form);
+    return upload;
+  } catch (error) {
+    console.log(error);
+    return "error";
+  }
 };
