@@ -7,7 +7,9 @@ let pesan = "berhasil";
 let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
   try {
-    const berita = await axios.get(`${import.meta.env.VITE_BASE_URL}`);
+    const berita = await axios.get(
+      `${import.meta.env.VITE_BASE_URL}/data/data.json`
+    );
     loading = false;
     console.log(berita.headers["content-type"]);
     if (berita.headers["content-type"].includes("text/html")) {
@@ -43,15 +45,12 @@ export const getUploadLoading = () => {
 export const article = async (id) => {
   // console.log("article: " + endPoint);
   const berita = await axios.get(
-    `${import.meta.env.VITE_BASE_URL}/api/berita/${id}`
+    `${import.meta.env.VITE_BASE_URL}/data/data.json`
   );
-  console.log(berita.data);
+
   loading = false;
 
-  // console.log("gagal");
-  // console.log("cari: " + id);
-  console.log(berita.headers);
-  return berita.data;
+  return berita.data.filter((item) => item.id.includes(id))[0];
 };
 
 export const setNegara = (id) => {

@@ -54,8 +54,7 @@ const CardBerita = (props) => {
         style={
           props.data.foto && {
             backgroundImage: `url(${
-              "https://raw.githubusercontent.com/ardifjar443/backendWebBerita/main/public" +
-              props.data.foto
+              import.meta.env.VITE_BASE_URL + props.data.foto
             })`,
             transitionDuration: "0.5s",
           }
