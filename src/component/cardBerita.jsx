@@ -46,7 +46,11 @@ const CardBerita = (props) => {
     };
     return new Date(dateString).toLocaleString("en-US", options);
   };
-  console.log(import.meta.env.VITE_BASE_UR + props.data.foto);
+  console.log(
+    "https://github.com/ardifjar443/backendWebBerita/blob/025dda22e91a9fe5ea08cfc082d06cd3bfe391e2/public" +
+      props.data.foto +
+      "?raw=true"
+  );
   return (
     <>
       <div
@@ -54,7 +58,8 @@ const CardBerita = (props) => {
         style={
           props.data.foto && {
             backgroundImage: `url(${
-              "http://localhost:8000" + props.data.foto
+              "https://raw.githubusercontent.com/ardifjar443/backendWebBerita/main/public" +
+              props.data.foto
             })`,
             transitionDuration: "0.5s",
           }

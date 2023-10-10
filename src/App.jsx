@@ -14,13 +14,22 @@ import Upload from "./pages/uploadBerita";
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
   const [error, setError] = useState(null);
+  const [isHtml, setIsHtml] = useState(false);
+  const [html, setHtml] = useState("");
   useEffect(() => {
     getBerita().then((result) => {
-      if (result.code !== "ERR_BAD_REQUEST") {
+      if (result.type === "html") {
+        setIsHtml(true);
         console.log(result);
-        setDataBerita(result);
+        setHtml(result.data);
       } else {
-        setError(result);
+        setIsHtml(false);
+        if (result.code !== "ERR_BAD_REQUEST") {
+          console.log(result);
+          setDataBerita(result.data);
+        } else {
+          setError(result);
+        }
       }
     });
   }, []);
@@ -56,40 +65,57 @@ function App() {
 
   return (
     <div data-theme={tema} style={{ transition: "1s" }}>
-      <ScrollButton
-        isVisible={isVisible}
-        scrollToTop={scrollToTop}
-        tema={tema}
-        setTema={setTema}
-        itema={itema}
-        setItema={setItema}
-        iconDark={iconDark}
-        iconLight={iconLight}
-      />
+      {!isHtml && (
+        <>
+          <ScrollButton
+            isVisible={isVisible}
+            scrollToTop={scrollToTop}
+            tema={tema}
+            setTema={setTema}
+            itema={itema}
+            setItema={setItema}
+            iconDark={iconDark}
+            iconLight={iconLight}
+          />
 
-      <Navbar
-        isVisible={isVisible}
-        tema={tema}
-        setTema={setTema}
-        itema={itema}
-        setItema={setItema}
-        iconDark={iconDark}
-        iconLight={iconLight}
-        cari={cari}
-        setCari={setCari}
-      />
+          <Navbar
+            isVisible={isVisible}
+            tema={tema}
+            setTema={setTema}
+            itema={itema}
+            setItema={setItema}
+            iconDark={iconDark}
+            iconLight={iconLight}
+            cari={cari}
+            setCari={setCari}
+          />
+        </>
+      )}
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<Berita dataBerita={dataBerita} error={error} />}
-          />
+          {isHtml ? (
+            <>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <div dangerouslySetInnerHTML={{ __html: html }}></div>
+                  </>
+                }
+              />
+            </>
+          ) : (
+            <Route
+              path="/"
+              element={<Berita dataBerita={dataBerita} error={error} />}
+            />
+          )}
           <Route path="/article/:id" element={<Article />} />
           <Route path="/search/:cari" element={<Search />} />
           <Route path="/upload" element={<Upload />}></Route>
         </Routes>
       </BrowserRouter>
-      <Footer />
+      {!isHtml && <Footer />}
     </div>
   );
 }
