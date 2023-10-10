@@ -16,3 +16,15 @@
     display: block;
   }
 }
+
+.notif {
+  position: fixed;
+  top: 0%; /* Atur jarak dari atas */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7); /* Hitam transparan */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

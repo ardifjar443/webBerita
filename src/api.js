@@ -54,10 +54,19 @@ export const UploadBerita = async (form) => {
   upload = true;
 
   try {
-    const upload = await axios.post("http://localhost:8000/api/berita", form);
-    return upload;
+    const uploads = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/berita`,
+      form
+    );
+    upload = false;
+
+    return "Berhasil Menambahkan Berita!!";
   } catch (error) {
-    console.log(error);
-    return "error";
+    upload = false;
+    if (error.response.data.message) {
+      return error.response.data.message;
+    } else {
+      return error.response.data.error;
+    }
   }
 };

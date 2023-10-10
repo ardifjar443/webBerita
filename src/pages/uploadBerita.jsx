@@ -1,43 +1,42 @@
 import { useState } from "react";
-import { UploadBerita, getUploadLoading } from "../api";
+import { UploadBerita, getLoading, getUploadLoading } from "../api";
+import Notif from "../component/notif";
 
 const Upload = () => {
-  const [author, setAuthor] = useState("");
-  const [title, setTitle] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [content, setContent] = useState("");
-  const [foto, setFoto] = useState(null);
+  const [isNotif, setIsNotif] = useState(false);
+  const [text, setText] = useState("");
+  const [formData, setFormData] = useState({
+    author: "",
+    title: "",
+    deskripsi: "",
+    content: "",
+    foto: null,
+  });
 
-  const handleAuthor = (e) => {
-    setAuthor(e.target.value);
-  };
-
-  const handleTitle = (e) => {
-    setTitle(e.target.value);
-  };
-  const handleDeskripsi = (e) => {
-    setDeskripsi(e.target.value);
-  };
-  const handleContent = (e) => {
-    setContent(e.target.value);
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFoto = (e) => {
-    setFoto(e.target.files[0]);
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, foto: e.target.files[0] });
   };
 
   const handleSubmit = () => {
-    console.log(getUploadLoading());
-    const formData = new FormData();
-    formData.append("author", author);
-    formData.append("title", title);
-    formData.append("deskripsi", deskripsi);
-    formData.append("content", content);
-    formData.append("foto", foto);
+    setText(<span className="loading loading-spinner loading-lg"></span>);
+    const formDatas = new FormData();
+    formDatas.append("author", formData.author);
+    formDatas.append("title", formData.title);
+    formDatas.append("deskripsi", formData.deskripsi);
+    formDatas.append("content", formData.content);
+    formDatas.append("foto", formData.foto);
 
-    console.log(UploadBerita(formData));
+    UploadBerita(formDatas).then((result) => {
+      setText(result);
+    });
+    setIsNotif(true);
   };
 
+  console.log(getLoading());
   return (
     <>
       <div className=" min-h-screen flex items-center justify-center ">
@@ -54,8 +53,9 @@ const Upload = () => {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered w-full bg-primary border-spacing-4 border-base-100 "
-                value={author}
-                onChange={handleAuthor}
+                name="author"
+                value={formData.author}
+                onChange={handleInputChange}
               />
             </div>
             <div className="form-control">
@@ -67,8 +67,9 @@ const Upload = () => {
               <textarea
                 className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100"
                 placeholder="Type here"
-                value={title}
-                onChange={handleTitle}
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
               ></textarea>
             </div>
             <div className="form-control">
@@ -78,8 +79,9 @@ const Upload = () => {
               <textarea
                 className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100"
                 placeholder="Type here"
-                value={deskripsi}
-                onChange={handleDeskripsi}
+                name="deskripsi"
+                value={formData.deskripsi}
+                onChange={handleInputChange}
               ></textarea>
             </div>
             <div className="form-control">
@@ -89,15 +91,18 @@ const Upload = () => {
               <textarea
                 className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100"
                 placeholder="Type here"
-                value={content}
-                onChange={handleContent}
+                name="content"
+                value={formData.content}
+                onChange={handleInputChange}
               ></textarea>
             </div>
             <div className="m-5">
               <input
                 type="file"
                 className="file-input  w-full  bg-primary text-info"
-                onChange={handleFoto}
+                name="foto"
+                onChange={handleFileChange}
+                accept="image/*"
               />
             </div>
           </div>
@@ -111,6 +116,7 @@ const Upload = () => {
           </div>
         </div>
       </div>
+      {isNotif && <Notif setIsNotif={setIsNotif} text={text} />}
     </>
   );
 };
