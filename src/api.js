@@ -65,11 +65,12 @@ export const setNegara = (id) => {
 
 export const UploadBerita = async (form) => {
   upload = true;
+  console.log(form);
 
   try {
     const uploads = await axios.post(`http://localhost:8000/api/berita`, form);
     upload = false;
-
+    console.log(uploads);
     return "Berhasil Menambahkan Berita!!";
   } catch (error) {
     upload = false;

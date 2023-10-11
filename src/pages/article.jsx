@@ -30,9 +30,13 @@ const Article = (props) => {
   const [img, setImg] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [content, setContent] = useState("");
+  const [gambar1, setGambar1] = useState("");
+  const [gambar2, setGambar2] = useState("");
+  const [gambar3, setGambar3] = useState("");
 
   useEffect(() => {
     article(id).then((result) => {
+      console.log(result);
       if (result !== "gagal") {
         setTitle(result.title);
         setPublis(result.updated_at);
@@ -41,6 +45,9 @@ const Article = (props) => {
         setDeskripsi(result.deskripsi);
         setContent(result.content);
         // Ubah data blob ke tipe Uint8Array
+        setGambar1(result.foto1);
+        setGambar2(result.foto2);
+        setGambar3(result.foto3);
       }
     });
   }, []);
@@ -67,8 +74,12 @@ const Article = (props) => {
                   </div>
 
                   <span>{deskripsi}</span>
+                  <span>{gambar1}</span>
 
-                  <div dangerouslySetInnerHTML={{ __html: content }} />
+                  <div
+                    className="flex flex-col gap-3"
+                    dangerouslySetInnerHTML={{ __html: content }}
+                  />
                 </div>
               </div>
             </div>

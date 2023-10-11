@@ -11,7 +11,16 @@ const Upload = () => {
     deskripsi: "",
     content: "",
     foto: null,
+    foto1: null,
+    foto2: null,
+    foto3: null,
   });
+
+  const [gambar, setGambar] = useState({
+    gambar1: null,
+  });
+
+  const [isiContent, setIsiContent] = useState([{ tipe: "paragraf" }]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,13 +36,99 @@ const Upload = () => {
     formDatas.append("author", formData.author);
     formDatas.append("title", formData.title);
     formDatas.append("deskripsi", formData.deskripsi);
-    formDatas.append("content", formData.content);
-    formDatas.append("foto", formData.foto);
 
+    formDatas.append("foto", formData.foto);
+    const fileGambar = ["file", "gambar1", "gambar2", "gambar3"];
+
+    let noGambar = 1;
+    const dataAkhir = isiContent;
+    for (let i = 0; i < dataAkhir.length; i++) {
+      if (fileGambar.includes(dataAkhir[i].link)) {
+        dataAkhir[i].link = "gambar" + noGambar;
+
+        // setFormData({ ...formData, ["foto" + noGambar]: dataAkhir[i].file[0] });
+        formDatas.append("foto" + noGambar, dataAkhir[i].file[0]);
+        noGambar++;
+      }
+    }
+    let akhirContent = "";
+    for (let i = 0; i < dataAkhir.length; i++) {
+      if (dataAkhir[i].tipe === "paragraf") {
+        akhirContent = akhirContent + "<p>" + dataAkhir[i].text + "</p>";
+      } else if (dataAkhir[i].file) {
+        akhirContent =
+          akhirContent +
+          "<img src={import.meta.env.VITE_BASE_URL+" +
+          dataAkhir[i].link +
+          "} />";
+      } else {
+        akhirContent = akhirContent + "<img src='" + dataAkhir[i].link + "' />";
+      }
+    }
+    // if (formData.foto1 !== null) {
+    //   formDatas.append("foto1", formData.foto1);
+    // }
+    // if (formData.foto2 !== null) {
+    //   formDatas.append("foto2", formData.foto2);
+    // }
+    // if (formData.foto3 !== null) {
+    //   formDatas.append("foto3", formData.foto3);
+    // }
+    formDatas.append("content", akhirContent);
+
+    console.log(formData);
+    for (const [key, value] of formDatas.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    const filteredFormData = Object.fromEntries(
+      Object.entries(formData).filter(([key, value]) => value !== null)
+    );
+    console.log(formData);
     UploadBerita(formDatas).then((result) => {
       setText(result);
     });
     setIsNotif(true);
+  };
+
+  console.log(isiContent);
+  const tambahContent = () => {
+    setIsiContent([...isiContent, { tipe: "paragraf" }]);
+  };
+  const tambahGambar = () => {
+    const count = isiContent.filter((item) => item.tipe === "gambar");
+    if (count.length < 3) {
+      setIsiContent([...isiContent, { tipe: "gambar" }]);
+    } else {
+      setText("gambar tidak bisa lebih dari 3");
+      setIsNotif(true);
+    }
+  };
+
+  const gantiIsiContent = (i, isi) => {
+    const arraySementara = [...isiContent];
+
+    arraySementara[i].text = isi;
+    setIsiContent(arraySementara);
+  };
+
+  const deleteContent = (index) => {
+    const updatedArray = isiContent.filter((_, i) => i !== index);
+    setIsiContent(updatedArray);
+  };
+
+  const gantiGambar = (index, url, file) => {
+    const arraySementara = [...isiContent];
+
+    if (url === "file") {
+      const count = isiContent.filter((item) => item.tipe === "gambar");
+
+      arraySementara[index].link = "file";
+      arraySementara[index].file = file;
+      setIsiContent(arraySementara);
+    } else {
+      arraySementara[index].link = url;
+      setIsiContent(arraySementara);
+    }
   };
 
   return (
@@ -71,7 +166,6 @@ const Upload = () => {
                 className="file-input  w-full  bg-primary text-info"
                 name="foto"
                 onChange={handleFileChange}
-                accept="image/*"
               />
             </div>
             <div className="form-control">
@@ -107,23 +201,71 @@ const Upload = () => {
                   <span className="label-text text-info">Content? </span>
                 </label>
                 <div className="w-full flex flex-col gap-3">
-                  <textarea
-                    className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100 w-full"
-                    placeholder="Type here"
-                    name="content"
-                    value={formData.content}
-                    onChange={handleInputChange}
-                  ></textarea>
-                  <textarea
-                    className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100 w-full"
-                    placeholder="Type here"
-                    name="content"
-                    value={formData.content}
-                    onChange={handleInputChange}
-                  ></textarea>
-                  <div>
-                    <button className="bg-info text-primary hover:bg-primary hover:text-info w-full rounded-lg">
-                      +
+                  {isiContent.map((data, index) => (
+                    <>
+                      <div key={index} className="flex">
+                        {data.tipe === "paragraf" ? (
+                          <textarea
+                            className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100 w-full"
+                            placeholder={`Type here ${index}`}
+                            name="content"
+                            value={data.text}
+                            onChange={(e) => {
+                              gantiIsiContent(index, e.target.value);
+                            }}
+                          ></textarea>
+                        ) : (
+                          <div className="flex" key={index}>
+                            <input
+                              type="file"
+                              className="file-input  w-full  bg-primary text-info"
+                              name="foto"
+                              onChange={(e) => {
+                                gantiGambar(index, "file", e.target.files);
+                              }}
+                              accept="image/*"
+                            />
+                            <div className="text-info p-3">atau</div>
+                            <div>
+                              <label> url Gambar {index}</label>
+                              <input
+                                type="text"
+                                placeholder="url Gambar"
+                                className="input input-bordered w-full bg-primary border-spacing-4 border-base-100 "
+                                value={data.link}
+                                onChange={(e) => {
+                                  gantiGambar(index, e.target.value);
+                                }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                        <div className="flex">
+                          <button
+                            className="bg-info text-primary p-3 m-2 rounded-md hover:bg-primary hover:text-info "
+                            onClick={() => {
+                              deleteContent(index);
+                            }}
+                          >
+                            -
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ))}
+
+                  <div className="flex gap-2">
+                    <button
+                      className="bg-info text-primary hover:bg-primary hover:text-info w-full rounded-lg"
+                      onClick={tambahContent}
+                    >
+                      + Paragraf
+                    </button>
+                    <button
+                      className="bg-info text-primary hover:bg-primary hover:text-info w-full rounded-lg"
+                      onClick={tambahGambar}
+                    >
+                      + Gambar
                     </button>
                   </div>
                 </div>
