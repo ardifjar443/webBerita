@@ -40,11 +40,13 @@ const Navbar = (props) => {
         <div className="flex  w-full justify-end gap-2">
           {!props.isVisible ? (
             <>
-              <div>
-                <div className="text-primary bg-info p-2 rounded-lg">
-                  <a href="/upload">Upload</a>
+              {import.meta.env.MODE === "development" && (
+                <div>
+                  <div className="text-primary bg-info p-2 rounded-lg">
+                    <a href="/upload">Upload</a>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className={displayStyle2}>
                 <input
                   type="text"
