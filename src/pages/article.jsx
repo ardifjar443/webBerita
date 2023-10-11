@@ -33,10 +33,9 @@ const Article = (props) => {
 
   useEffect(() => {
     article(id).then((result) => {
-      console.log(result);
       if (result !== "gagal") {
         setTitle(result.title);
-        setPublis(result.upload);
+        setPublis(result.updated_at);
         setSource(result.author);
         setImg(result.foto);
         setDeskripsi(result.deskripsi);
@@ -46,14 +45,12 @@ const Article = (props) => {
     });
   }, []);
 
-  console.log(img);
-
   return (
     <>
       {title !== "" ? (
         <>
-          <div className=" min-h-screen flex items-center justify-center ">
-            <div className=" w-full mx-10 mt-24">
+          <div className=" min-h-screen flex items-center justify-center  ">
+            <div className=" w-full mx-10 mt-24 ">
               <div>
                 <h1 className=" text-xl font-bold">{title}</h1>
                 <p className="text-lg">{publis}</p>
@@ -68,8 +65,10 @@ const Article = (props) => {
                       className="w-3/4"
                     />
                   </div>
+
                   <span>{deskripsi}</span>
-                  <span>{content}</span>
+
+                  <div dangerouslySetInnerHTML={{ __html: content }} />
                 </div>
               </div>
             </div>

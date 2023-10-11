@@ -7,7 +7,7 @@ const Jumbtron = (props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [fade, setFade] = useState(false);
   let hoverTimeout;
-
+  console.log(props);
   const handleMouseEnter = () => {
     setFade(true);
     hoverTimeout = setTimeout(() => {
@@ -44,12 +44,21 @@ const Jumbtron = (props) => {
               </span>
             </div>
             <div className="text-end">
-              <span
-                className=" font-bold font-serif"
-                style={{ fontSize: "20px" }}
-              >
-                .news
-              </span>
+              {import.meta.env.MODE === "development" ? (
+                <span
+                  className=" font-bold font-serif"
+                  style={{ fontSize: "20px" }}
+                >
+                  .{import.meta.env.MODE}
+                </span>
+              ) : (
+                <span
+                  className=" font-bold font-serif"
+                  style={{ fontSize: "20px" }}
+                >
+                  .news
+                </span>
+              )}
             </div>
           </div>
         ) : (
@@ -152,7 +161,7 @@ const Jumbtron = (props) => {
             {props.error && (
               <>
                 <span className="bg-primary text-info p-3 text-lg rounded-lg ">
-                  API said :{" " + props.error.response.data.error}
+                  API said :{" " + props.error}
                 </span>
               </>
             )}

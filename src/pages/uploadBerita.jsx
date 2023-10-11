@@ -36,11 +36,10 @@ const Upload = () => {
     setIsNotif(true);
   };
 
-  console.log(getLoading());
   return (
     <>
-      <div className=" min-h-screen flex items-center justify-center ">
-        <div className="bg-primary text-info p-3 rounded-lg shadow-md w-3/4 flex flex-col  ">
+      <div className=" min-h-screen flex items-center justify-center  ">
+        <div className="bg-primary text-info p-3 rounded-lg shadow-md w-3/4 flex flex-col mt-24 mb-10 ">
           <div>Upload Berita</div>
           <div className="">
             <div className="form-control w-full ">
@@ -56,6 +55,23 @@ const Upload = () => {
                 name="author"
                 value={formData.author}
                 onChange={handleInputChange}
+              />
+            </div>
+            <div className="m-5">
+              <label className="label">
+                <span>
+                  {" "}
+                  Pilih gambar header<span className="text-red-500">
+                    *
+                  </span>{" "}
+                </span>
+              </label>
+              <input
+                type="file"
+                className="file-input  w-full  bg-primary text-info"
+                name="foto"
+                onChange={handleFileChange}
+                accept="image/*"
               />
             </div>
             <div className="form-control">
@@ -84,26 +100,34 @@ const Upload = () => {
                 onChange={handleInputChange}
               ></textarea>
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text text-info">Content? </span>
-              </label>
-              <textarea
-                className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100"
-                placeholder="Type here"
-                name="content"
-                value={formData.content}
-                onChange={handleInputChange}
-              ></textarea>
-            </div>
-            <div className="m-5">
-              <input
-                type="file"
-                className="file-input  w-full  bg-primary text-info"
-                name="foto"
-                onChange={handleFileChange}
-                accept="image/*"
-              />
+            <div className="form-control m-2 ">
+              <div className="flex ">
+                {" "}
+                <label className="label">
+                  <span className="label-text text-info">Content? </span>
+                </label>
+                <div className="w-full flex flex-col gap-3">
+                  <textarea
+                    className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100 w-full"
+                    placeholder="Type here"
+                    name="content"
+                    value={formData.content}
+                    onChange={handleInputChange}
+                  ></textarea>
+                  <textarea
+                    className="textarea textarea-bordered h-24 bg-primary border-spacing-4 border-base-100 w-full"
+                    placeholder="Type here"
+                    name="content"
+                    value={formData.content}
+                    onChange={handleInputChange}
+                  ></textarea>
+                  <div>
+                    <button className="bg-info text-primary hover:bg-primary hover:text-info w-full rounded-lg">
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex justify-center">

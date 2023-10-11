@@ -86,7 +86,9 @@ const CardBerita = (props) => {
               </div>
 
               <div className="p-3 ">
-                <h2 className=" text-end font-semibold">{props.data.upload}</h2>
+                <h2 className=" text-end font-semibold">
+                  {props.data.updated_at}
+                </h2>
               </div>
             </div>
           </div>

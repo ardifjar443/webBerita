@@ -10,15 +10,20 @@ export const getBerita = async () => {
     const berita = await axios.get(
       `${import.meta.env.VITE_BASE_URL}/data/data.json`
     );
-    loading = false;
-    console.log(berita.headers["content-type"]);
+
     if (berita.headers["content-type"].includes("text/html")) {
+      loading = false;
       return { type: "html", data: berita.data };
     } else if (berita.headers["content-type"].includes("application/json")) {
+      loading = false;
       return { type: "json", data: berita.data };
     } else if (
       berita.headers["content-type"].includes("text/plain; charset=utf-8")
     ) {
+      if (berita.data === "") {
+        return { type: "json", data: "tidak ada data" };
+      }
+      loading = false;
       return { type: "json", data: berita.data };
     } else {
       return "tidak ada data";

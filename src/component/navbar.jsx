@@ -33,13 +33,18 @@ const Navbar = (props) => {
         style={{ transition: "1s" }}
       >
         <div className="flex items-start p-2 titleWeb ">
-          <a className="btn btn-ghost normal-case text-xl text-info">
+          <a className="btn btn-ghost normal-case text-xl text-info" href="/">
             ArdiFjar443
           </a>
         </div>
         <div className="flex  w-full justify-end gap-2">
           {!props.isVisible ? (
             <>
+              <div>
+                <div className="text-primary bg-info p-2 rounded-lg">
+                  <a href="/upload">Upload</a>
+                </div>
+              </div>
               <div className={displayStyle2}>
                 <input
                   type="text"

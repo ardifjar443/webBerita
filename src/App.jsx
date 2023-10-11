@@ -25,8 +25,12 @@ function App() {
       } else {
         setIsHtml(false);
         if (result.code !== "ERR_BAD_REQUEST") {
-          console.log(result);
-          setDataBerita(result.data.reverse());
+          if (result.data === "tidak ada data") {
+            console.log(result.data);
+            setError(result.data);
+          } else {
+            setDataBerita(result.data.reverse());
+          }
         } else {
           setError(result);
         }
