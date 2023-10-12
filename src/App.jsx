@@ -82,7 +82,7 @@ function App() {
             iconLight={iconLight}
           />
 
-          {/* <Navbar
+          <Navbar
             isVisible={isVisible}
             tema={tema}
             setTema={setTema}
@@ -92,7 +92,7 @@ function App() {
             iconLight={iconLight}
             cari={cari}
             setCari={setCari}
-          /> */}
+          />
         </>
       )}
       <BrowserRouter>

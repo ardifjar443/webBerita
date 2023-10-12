@@ -34,15 +34,21 @@ const Berita = (props) => {
       {!getLoading() && (
         <>
           <div className="">
-            <div className="bg-primary mx-10 p-3 rounded-lg">
-              <h1 className="text-center text-3xl text-info">Untuk Anda</h1>
+            <div className="p-5">
+              <div className="bg-primary  p-3 rounded-lg">
+                <h1 className="text-center text-3xl text-info">Untuk Anda</h1>
+              </div>
             </div>
             <CarouselBerita data={props.dataBerita} />
           </div>
           <div id="berita">{/* <Sorting /> */}</div>
           <div>
-            <div className="bg-primary mx-10 p-3 rounded-lg">
-              <h1 className="text-center text-3xl text-info">Berita Lainnya</h1>
+            <div className="p-5">
+              <div className="bg-primary  p-3 rounded-lg">
+                <h1 className="text-center text-3xl text-info">
+                  Berita Lainnya
+                </h1>
+              </div>
             </div>
             <TampilBerita dataBerita={currentContent} />
           </div>
