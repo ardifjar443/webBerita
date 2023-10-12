@@ -49,7 +49,7 @@ const Navbar = (props) => {
                   </div>
                 </div>
               )}
-              <div className={displayStyle2}>
+              {/* <div className={displayStyle2}>
                 <input
                   type="text"
                   className="input input-bordered w-24 md:w-auto"
@@ -68,7 +68,7 @@ const Navbar = (props) => {
                     }
                   }}
                 />
-              </div>
+              </div> */}
               <div className={displayStyle2}>
                 <button
                   className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
@@ -117,7 +117,7 @@ const Navbar = (props) => {
             </>
           ) : (
             <>
-              <div className={displayStyle2}>
+              {/* <div className={displayStyle2}>
                 <input
                   type="text"
                   className="input input-bordered w-24 md:w-auto"
@@ -136,7 +136,7 @@ const Navbar = (props) => {
                     }
                   }}
                 />
-              </div>
+              </div> */}
               <div className={displayStyle2}>
                 <button
                   className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
