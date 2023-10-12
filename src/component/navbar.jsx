@@ -27,7 +27,12 @@ const Navbar = (props) => {
     }
   }, [props.isVisible]);
 
-  const [cari, setCari] = useState("Search");
+  const cari = (
+    <>
+      <div>Maaf saat ini pencarian masih belum bisa</div>
+    </>
+  );
+
   return (
     <>
       <div
@@ -186,12 +191,7 @@ const Navbar = (props) => {
               </div>
             </>
           )}
-          {isNotif && (
-            <Notif
-              text="Maaf saat ini pencarian belum bisa "
-              setIsNotif={setIsNotif}
-            />
-          )}
+          {isNotif && <Notif text={cari} setIsNotif={setIsNotif} />}
           {/* <div className="dropdown dropdown-end ">
             <label
               tabIndex={0}

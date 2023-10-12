@@ -41,7 +41,9 @@ const Berita = (props) => {
             </div>
             <CarouselBerita data={props.dataBerita} />
           </div>
-          <div id="berita">{/* <Sorting /> */}</div>
+          <div id="berita" className="p-10">
+            {/* <Sorting /> */}
+          </div>
           <div>
             <div className="p-5">
               <div className="bg-primary  p-3 rounded-lg">
