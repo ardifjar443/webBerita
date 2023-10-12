@@ -19,15 +19,6 @@ const CardBerita = (props) => {
     return () => clearInterval(interval); // Bersihkan interval saat komponen tidak lagi ter-render
   }, [startTime]);
 
-  const formatTime = (timeInSeconds) => {
-    const days = Math.floor(timeInSeconds / (60 * 60 * 24));
-    const hours = Math.floor((timeInSeconds % (60 * 60 * 24)) / (60 * 60));
-    const minutes = Math.floor((timeInSeconds % (60 * 60)) / 60);
-    const seconds = timeInSeconds % 60;
-
-    return { days, hours, minutes, seconds };
-  };
-
   const handleMouseEnter = () => {
     if (isHovered) {
       setFade(true);
@@ -99,7 +90,9 @@ const CardBerita = (props) => {
             style={{ transitionDuration: "2.5s" }}
           >
             <div
-              className="rounded-2xl bg-primary text-info   "
+              className={`rounded-2xl bg-primary text-info animate__animated ${
+                !isHovered ? "animate__flipInY" : "animate__flipOutY"
+              }   `}
               style={{ transition: "1s" }}
             >
               <div className="p-4  ">
@@ -135,10 +128,10 @@ const CardBerita = (props) => {
           <div
             className={`  bg-primary p-5 lg:p-20 mt-2 rounded-xl relative animate__animated ${
               !isHovered
-                ? ""
+                ? "animate__flipOutY"
                 : fade
-                ? "opacity-90 animate__flipOutX"
-                : "opacity-90 animate__flipInX"
+                ? "opacity-90 animate__flipOutY"
+                : "opacity-90 animate__flipInY"
             }`}
           >
             <div>
@@ -148,7 +141,11 @@ const CardBerita = (props) => {
           </div>
           <div
             className={` opacity-90 flex bg-white mt-2 rounded-xl relative animate__animated ${
-              !isHovered ? "" : fade ? "animate__flipOutY" : "animate__flipInY"
+              !isHovered
+                ? "animate__flipOutY"
+                : fade
+                ? "animate__flipOutY"
+                : "animate__flipInY"
             }`}
           >
             <Link
