@@ -50,7 +50,7 @@ const Berita = (props) => {
                 </h1>
               </div>
             </div>
-            <TampilBerita dataBerita={currentContent} />
+            {/* <TampilBerita dataBerita={currentContent} /> */}
           </div>
           <div className="flex items-center justify-center">
             <Pagination
