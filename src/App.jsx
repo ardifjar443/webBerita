@@ -119,7 +119,7 @@ function App() {
           <Route path="/upload" element={<Upload />}></Route>
         </Routes>
       </BrowserRouter>
-      {/* {!isHtml && <Footer />} */}
+      {!isHtml && <Footer />}
     </div>
   );
 }
