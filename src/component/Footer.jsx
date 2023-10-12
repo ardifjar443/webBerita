@@ -27,7 +27,7 @@ const Footer = ({ activeTab, setActiveTab }) => {
                   <h4 className="text-info">Quotes</h4>
                   <p className="text-success">
                     "Mulai setiap harimu dengan pikiran positif dan hati yang
-                    bersyukur." - Roy T. Bennett.
+                    bersyukur." - Roy T. Bennett."
                   </p>
                 </div>
               </div>

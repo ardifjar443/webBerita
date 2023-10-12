@@ -10,6 +10,7 @@ import ScrollButton from "./component/scrollButton";
 import Article from "./pages/article";
 import Search from "./pages/search";
 import Upload from "./pages/uploadBerita";
+import CopyPasteComponent from "./component/copy";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -119,7 +120,12 @@ function App() {
           <Route path="/upload" element={<Upload />}></Route>
         </Routes>
       </BrowserRouter>
-      {!isHtml && <Footer />}
+      {!isHtml && (
+        <>
+          <CopyPasteComponent />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
