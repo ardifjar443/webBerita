@@ -91,7 +91,7 @@ const CardBerita = (props) => {
           >
             <div
               className={`rounded-2xl bg-primary text-info animate__animated ${
-                !isHovered ? "animate__flipInY" : "animate__flipOutY"
+                !isHovered && "animate__flipInY"
               }   `}
               style={{ transition: "1s" }}
             >
