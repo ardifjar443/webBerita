@@ -129,7 +129,7 @@ const Jumbtron = (props) => {
           <div className="bg-primary text-info p-3 rounded-xl  border-8 border-red-600">
             <p>
               disclaimer berita yang ada disini itu ngambil dari source lain dan
-              disini cuma dimanfaatkan untuk belajar saja
+              disini cuma dimanfaatkan untuk belajar saja.
             </p>
           </div>
         </div>
