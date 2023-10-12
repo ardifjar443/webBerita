@@ -39,7 +39,7 @@ const Navbar = (props) => {
             ArdiFjar443
           </a>
         </div>
-        <div className="  w-full  gap-2 ">
+        <div className=" w-full justify-end gap-2 ">
           {!props.isVisible ? (
             <>
               {import.meta.env.MODE === "development" && (
