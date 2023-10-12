@@ -68,21 +68,21 @@ const Upload = () => {
 
     UploadBerita(formDatas).then((result) => {
       setText(result);
+      if (result === "Berhasil Menambahkan Berita!!") {
+        setFormData({
+          author: "",
+          title: "",
+          deskripsi: "",
+          content: "",
+          foto: null,
+          foto1: null,
+          foto2: null,
+          foto3: null,
+        });
+        setIsiContent([{ tipe: "paragraf", text: "" }]);
+      }
     });
     setIsNotif(true);
-    if (text === "Berhasil Menambahkan Berita!!") {
-      setFormData({
-        author: "",
-        title: "",
-        deskripsi: "",
-        content: "",
-        foto: null,
-        foto1: null,
-        foto2: null,
-        foto3: null,
-      });
-      setIsiContent([{ tipe: "paragraf", text: "" }]);
-    }
   };
 
   const tambahContent = () => {

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Notif from "./notif";
 
 const Navbar = (props) => {
   const [displayStyle, setDisplayStyle] = useState("block");
   const [displayStyle2, setDisplayStyle2] = useState("");
+  const [isNotif, setIsNotif] = useState(false);
 
   useEffect(() => {
     if (props.isVisible) {
@@ -68,9 +70,12 @@ const Navbar = (props) => {
                 />
               </div>
               <div className={displayStyle2}>
-                <a
+                <button
                   className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
-                  href={`/search/${cari}`}
+                  // href={`/search/${cari}`}
+                  onClick={() => {
+                    setIsNotif(true);
+                  }}
                 >
                   <svg
                     className="w-5 h-5 "
@@ -85,7 +90,7 @@ const Navbar = (props) => {
                     <circle cx="11" cy="11" r="8" />{" "}
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
-                </a>
+                </button>
               </div>
               <div className={displayStyle}>
                 <button
@@ -133,9 +138,11 @@ const Navbar = (props) => {
                 />
               </div>
               <div className={displayStyle2}>
-                <a
+                <button
                   className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
-                  href={`/search/${cari}`}
+                  onClick={() => {
+                    setIsNotif(true);
+                  }}
                 >
                   <svg
                     className="w-5 h-5 "
@@ -150,7 +157,7 @@ const Navbar = (props) => {
                     <circle cx="11" cy="11" r="8" />{" "}
                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                   </svg>
-                </a>
+                </button>
               </div>
 
               <div
@@ -179,9 +186,18 @@ const Navbar = (props) => {
               </div>
             </>
           )}
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 "></div>
+          {isNotif && (
+            <Notif
+              text="Maaf saat ini pencarian belum bisa "
+              setIsNotif={setIsNotif}
+            />
+          )}
+          {/* <div className="dropdown dropdown-end ">
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-circle avatar bg-white"
+            >
+              <div className="w-10  "></div>
             </label>
             <ul
               tabIndex={0}
@@ -200,7 +216,7 @@ const Navbar = (props) => {
                 <a>Logout</a>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
