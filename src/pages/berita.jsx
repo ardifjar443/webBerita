@@ -30,7 +30,7 @@ const Berita = (props) => {
 
   return (
     <>
-      <Jumbtron dataBerita={props.dataBerita} error={props.error} />
+      {/* <Jumbtron dataBerita={props.dataBerita} error={props.error} /> */}
       {!getLoading() && (
         <>
           <div className="">
