@@ -30,7 +30,7 @@ const Berita = (props) => {
 
   return (
     <>
-      {/* <Jumbtron dataBerita={props.dataBerita} error={props.error} /> */}
+      <Jumbtron dataBerita={props.dataBerita} error={props.error} />
       {!getLoading() && (
         <>
           <div className="">
@@ -39,7 +39,7 @@ const Berita = (props) => {
                 <h1 className="text-center text-3xl text-info">Untuk Anda</h1>
               </div>
             </div>
-            {/* <CarouselBerita data={props.dataBerita} /> */}
+            <CarouselBerita data={props.dataBerita} />
           </div>
           <div id="berita">{/* <Sorting /> */}</div>
           <div>
@@ -50,7 +50,7 @@ const Berita = (props) => {
                 </h1>
               </div>
             </div>
-            {/* <TampilBerita dataBerita={currentContent} /> */}
+            <TampilBerita dataBerita={currentContent} />
           </div>
           <div className="flex items-center justify-center">
             <Pagination
