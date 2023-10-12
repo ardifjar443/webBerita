@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { UploadBerita, getLoading, getUploadLoading } from "../api";
 import Notif from "../component/notif";
+import { json } from "react-router-dom";
+import { data } from "autoprefixer";
 
 const Upload = () => {
   const [isNotif, setIsNotif] = useState(false);
@@ -14,10 +16,6 @@ const Upload = () => {
     foto1: null,
     foto2: null,
     foto3: null,
-  });
-
-  const [gambar, setGambar] = useState({
-    gambar1: null,
   });
 
   const [isiContent, setIsiContent] = useState([{ tipe: "paragraf" }]);
@@ -63,20 +61,13 @@ const Upload = () => {
           "} />";
       } else {
         akhirContent = akhirContent + "<img src='" + dataAkhir[i].link + "' />";
+        dataAkhir[i].tipe = "gambarUrl";
       }
     }
-    // if (formData.foto1 !== null) {
-    //   formDatas.append("foto1", formData.foto1);
-    // }
-    // if (formData.foto2 !== null) {
-    //   formDatas.append("foto2", formData.foto2);
-    // }
-    // if (formData.foto3 !== null) {
-    //   formDatas.append("foto3", formData.foto3);
-    // }
-    formDatas.append("content", akhirContent);
 
-    console.log(formData);
+    formDatas.append("dataArray", JSON.stringify({ dataAkhir }));
+
+    console.log(dataAkhir);
     for (const [key, value] of formDatas.entries()) {
       console.log(`${key}: ${value}`);
     }
@@ -88,6 +79,17 @@ const Upload = () => {
       setText(result);
     });
     setIsNotif(true);
+    setFormData({
+      author: "",
+      title: "",
+      deskripsi: "",
+      content: "",
+      foto: null,
+      foto1: null,
+      foto2: null,
+      foto3: null,
+    });
+    setIsiContent([{ tipe: "paragraf", text: "" }]);
   };
 
   console.log(isiContent);

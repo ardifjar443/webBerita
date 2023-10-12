@@ -36,7 +36,6 @@ const Article = (props) => {
 
   useEffect(() => {
     article(id).then((result) => {
-      console.log(result);
       if (result !== "gagal") {
         setTitle(result.title);
         setPublis(result.updated_at);
@@ -64,7 +63,7 @@ const Article = (props) => {
                 <p>source: {source}</p>
               </div>
               <div className="w-full flex  justify-center mt-10 ">
-                <div className="w-3/4 flex flex-col gap-4">
+                <div className=" flex flex-col gap-4">
                   <div className="flex justify-center">
                     <img
                       src={import.meta.env.VITE_BASE_URL + img}
@@ -74,7 +73,6 @@ const Article = (props) => {
                   </div>
 
                   <span>{deskripsi}</span>
-                  <span>{gambar1}</span>
 
                   <div
                     className="flex flex-col gap-3"

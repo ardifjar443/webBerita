@@ -7,7 +7,7 @@ const Jumbtron = (props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [fade, setFade] = useState(false);
   let hoverTimeout;
-  console.log(props);
+
   const handleMouseEnter = () => {
     setFade(true);
     hoverTimeout = setTimeout(() => {
