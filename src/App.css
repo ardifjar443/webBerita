@@ -6,6 +6,11 @@
   z-index: 9999;
 }
 
+.navbar {
+  position: fixed;
+  z-index: 9999;
+}
+
 @media (max-width: 600px) {
   .titleWeb {
     display: block;
