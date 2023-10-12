@@ -54,11 +54,6 @@ const Upload = () => {
       if (dataAkhir[i].tipe === "paragraf") {
         akhirContent = akhirContent + "<p>" + dataAkhir[i].text + "</p>";
       } else if (dataAkhir[i].file) {
-        akhirContent =
-          akhirContent +
-          "<img src={import.meta.env.VITE_BASE_URL+" +
-          dataAkhir[i].link +
-          "} />";
       } else {
         akhirContent = akhirContent + "<img src='" + dataAkhir[i].link + "' />";
         dataAkhir[i].tipe = "gambarUrl";
