@@ -135,7 +135,7 @@ const CardBerita = (props) => {
           <div
             className={`  bg-primary p-5 lg:p-20 mt-2 rounded-xl relative animate__animated ${
               !isHovered
-                ? "opacity-90 animate__flipOutX"
+                ? ""
                 : fade
                 ? "opacity-90 animate__flipOutX"
                 : "opacity-90 animate__flipInX"
@@ -148,11 +148,7 @@ const CardBerita = (props) => {
           </div>
           <div
             className={` opacity-90 flex bg-white mt-2 rounded-xl relative animate__animated ${
-              !isHovered
-                ? "animate__flipOutY"
-                : fade
-                ? "animate__flipOutY"
-                : "animate__flipInY"
+              !isHovered ? "" : fade ? "animate__flipOutY" : "animate__flipInY"
             }`}
           >
             <Link
