@@ -39,7 +39,7 @@ const Berita = (props) => {
                 <h1 className="text-center text-3xl text-info">Untuk Anda</h1>
               </div>
             </div>
-            <CarouselBerita data={props.dataBerita} />
+            {/* <CarouselBerita data={props.dataBerita} /> */}
           </div>
           <div id="berita">{/* <Sorting /> */}</div>
           <div>
