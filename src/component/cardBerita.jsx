@@ -6,6 +6,27 @@ const CardBerita = (props) => {
   const [fade, setFade] = useState(false);
   let hoverTimeout;
   const id = props.data.title.split(" ").slice(0, 8).join("-");
+  const [startTime] = useState(new Date(props.data.updated_at));
+  const [elapsedTime, setElapsedTime] = useState(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentTime = new Date();
+      const difference = Math.floor((currentTime - startTime) / 1000); // Perbedaan waktu dalam detik
+      setElapsedTime(difference);
+    }, 1000); // Update setiap detik
+
+    return () => clearInterval(interval); // Bersihkan interval saat komponen tidak lagi ter-render
+  }, [startTime]);
+
+  const formatTime = (timeInSeconds) => {
+    const days = Math.floor(timeInSeconds / (60 * 60 * 24));
+    const hours = Math.floor((timeInSeconds % (60 * 60 * 24)) / (60 * 60));
+    const minutes = Math.floor((timeInSeconds % (60 * 60)) / 60);
+    const seconds = timeInSeconds % 60;
+
+    return { days, hours, minutes, seconds };
+  };
 
   const handleMouseEnter = () => {
     if (isHovered) {
@@ -86,9 +107,27 @@ const CardBerita = (props) => {
               </div>
 
               <div className="p-3 ">
-                <h2 className=" text-end font-semibold">
-                  {props.data.updated_at}
-                </h2>
+                {elapsedTime !== null && (
+                  <div>
+                    {Math.floor(elapsedTime / (3600 * 24)) !== 0 ? (
+                      <h2 className="text-end font-semibold">
+                        {Math.floor(elapsedTime / (3600 * 24))} hari lalu
+                      </h2>
+                    ) : Math.floor(elapsedTime / 3600) !== 0 ? (
+                      <h2 className="text-end font-semibold">
+                        {Math.floor(elapsedTime / 3600)} jam lalu
+                      </h2>
+                    ) : Math.floor(elapsedTime / 60) !== 0 ? (
+                      <h2 className="text-end font-semibold">
+                        {Math.floor(elapsedTime / 60)} menit lalu
+                      </h2>
+                    ) : (
+                      <h2 className="text-end font-semibold">
+                        {elapsedTime} detik lalu
+                      </h2>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

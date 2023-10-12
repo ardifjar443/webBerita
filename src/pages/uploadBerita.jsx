@@ -62,32 +62,29 @@ const Upload = () => {
 
     formDatas.append("dataArray", JSON.stringify({ dataAkhir }));
 
-    console.log(dataAkhir);
     for (const [key, value] of formDatas.entries()) {
       console.log(`${key}: ${value}`);
     }
-    const filteredFormData = Object.fromEntries(
-      Object.entries(formData).filter(([key, value]) => value !== null)
-    );
-    console.log(formData);
+
     UploadBerita(formDatas).then((result) => {
       setText(result);
     });
     setIsNotif(true);
-    setFormData({
-      author: "",
-      title: "",
-      deskripsi: "",
-      content: "",
-      foto: null,
-      foto1: null,
-      foto2: null,
-      foto3: null,
-    });
-    setIsiContent([{ tipe: "paragraf", text: "" }]);
+    if (text === "Berhasil Menambahkan Berita!!") {
+      setFormData({
+        author: "",
+        title: "",
+        deskripsi: "",
+        content: "",
+        foto: null,
+        foto1: null,
+        foto2: null,
+        foto3: null,
+      });
+      setIsiContent([{ tipe: "paragraf", text: "" }]);
+    }
   };
 
-  console.log(isiContent);
   const tambahContent = () => {
     setIsiContent([...isiContent, { tipe: "paragraf" }]);
   };
