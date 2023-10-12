@@ -125,6 +125,14 @@ const Jumbtron = (props) => {
             <div className="flex items-end font-bold text-lg">Click</div>
           </div>
         </div>
+        <div>
+          <div className="bg-primary text-info p-3 rounded-xl  border-8 border-red-600">
+            <p>
+              disclaimer berita yang ada disini itu ngambil dari source lain dan
+              disini cuma dimanfaatkan untuk belajar saja
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex w-full p-10  items-center justify-center align-middle   ">
         {!getLoading() ? (
