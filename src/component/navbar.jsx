@@ -39,7 +39,7 @@ const Navbar = (props) => {
             ArdiFjar443
           </a>
         </div>
-        <div className="flex  w-full justify-end gap-2">
+        <div className="flex  w-full justify-end gap-2 bg-white">
           {!props.isVisible ? (
             <>
               {import.meta.env.MODE === "development" && (
