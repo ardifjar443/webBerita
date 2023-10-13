@@ -11,6 +11,7 @@ import Article from "./pages/article";
 import Search from "./pages/search";
 import Upload from "./pages/uploadBerita";
 import CopyPasteComponent from "./component/copy";
+import NotFound from "./component/notFound";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -118,6 +119,8 @@ function App() {
           <Route path="/article/:id" element={<Article />} />
           <Route path="/search/:cari" element={<Search />} />
           <Route path="/upload" element={<Upload />}></Route>
+          <Route path="*" element={<NotFound />} />
+          {/* <Route path="/error" element={<NotFound />} /> */}
         </Routes>
       </BrowserRouter>
       {!isHtml && (

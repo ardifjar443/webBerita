@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { article, setNegara } from "../api";
 import { useEffect, useState } from "react";
 
 const Article = (props) => {
+  const history = useNavigate();
   const { id } = useParams();
   const scrollToTop = () => {
     window.scrollTo({
@@ -36,7 +37,8 @@ const Article = (props) => {
 
   useEffect(() => {
     article(id).then((result) => {
-      if (result !== "gagal") {
+      console.log(result);
+      if (result !== "tidak ada article") {
         setTitle(result.title);
         setPublis(result.updated_at);
         setSource(result.author);
@@ -47,6 +49,9 @@ const Article = (props) => {
         setGambar1(result.foto1);
         setGambar2(result.foto2);
         setGambar3(result.foto3);
+      } else {
+        console.log("gagal");
+        history("/error");
       }
     });
   }, []);

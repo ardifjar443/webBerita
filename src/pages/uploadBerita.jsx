@@ -7,6 +7,7 @@ import { data } from "autoprefixer";
 const Upload = () => {
   const [isNotif, setIsNotif] = useState(false);
   const [text, setText] = useState("");
+  const [lengkap, setLengkap] = useState(false);
   const [formData, setFormData] = useState({
     author: "",
     title: "",
@@ -62,12 +63,36 @@ const Upload = () => {
 
     formDatas.append("dataArray", JSON.stringify({ dataAkhir }));
 
-    for (const [key, value] of formDatas.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (const [key, value] of formDatas.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     UploadBerita(formDatas).then((result) => {
-      setText(result);
+      setText(
+        <>
+          <div className="flex flex-col ">
+            <div className="flex flex-col ">
+              {result.errors.author && (
+                <div>-{" " + result.errors.author[0]}</div>
+              )}
+              {result.errors.deskripsi && (
+                <div>-{" " + result.errors.deskripsi[0]}</div>
+              )}
+              {result.errors.foto &&
+                result.errors.foto.map((item, index) => (
+                  <>
+                    <div key={index} className="flex">
+                      <div>- </div> <div>{"  " + item}</div>
+                    </div>
+                  </>
+                ))}
+              {result.errors.title && (
+                <div>-{" " + result.errors.title[0]}</div>
+              )}
+            </div>
+          </div>
+        </>
+      );
       if (result === "Berhasil Menambahkan Berita!!") {
         setFormData({
           author: "",

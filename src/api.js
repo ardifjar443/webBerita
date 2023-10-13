@@ -54,6 +54,9 @@ export const article = async (id) => {
   );
 
   loading = false;
+  if (berita.data.filter((item) => item.id.includes(id))[0] === undefined) {
+    return "tidak ada article";
+  }
 
   return berita.data.filter((item) => item.id.includes(id))[0];
 };
@@ -77,8 +80,8 @@ export const UploadBerita = async (form) => {
     console.log(error);
     if (error.message === "Network Error") {
       return "Anda tidak berada di Server";
-    } else if (error.response.data.message) {
-      return error.response.data.message;
+    } else if (error.response.data) {
+      return error.response.data;
     } else {
       return error.response.data.error;
     }

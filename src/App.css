@@ -20,7 +20,7 @@
 .notif {
   position: fixed;
   top: 0%; /* Atur jarak dari atas */
-  left: 50%;
+  left: 0%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.7); /* Hitam transparan */
   color: #fff;

@@ -29,7 +29,10 @@ const Navbar = (props) => {
 
   const cari = (
     <>
-      <div>Maaf saat ini pencarian masih belum bisa</div>
+      <div className="flex flex-col items-center">
+        <p>Maaf saat ini pencarian masih belum tersedia</p>
+        <p className="font-bold">masih dalam tahap development</p>
+      </div>
     </>
   );
 
@@ -191,7 +194,9 @@ const Navbar = (props) => {
               </div>
             </>
           )}
-          {isNotif && <Notif text={cari} setIsNotif={setIsNotif} />}
+          {isNotif && (
+            <Notif text={cari} setIsNotif={setIsNotif} isNotif={isNotif} />
+          )}
           {/* <div className="dropdown dropdown-end ">
             <label
               tabIndex={0}
