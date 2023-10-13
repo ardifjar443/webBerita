@@ -12,7 +12,7 @@ const TampilBerita = (props) => {
               key={index}
               className=" rounded-t-3xl rounded-bl-3xl min-h-fit   transform transition duration-500 animate__backInLeft"
             >
-              <CardBerita data={items} index={index} />
+              <CardBerita data={items} index={index} q={props.q} />
             </div>
           ))}
         </div>

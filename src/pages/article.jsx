@@ -3,6 +3,9 @@ import { article, setNegara } from "../api";
 import { useEffect, useState } from "react";
 
 const Article = (props) => {
+  const searchParams = new URLSearchParams(location.search);
+  const cari = searchParams.get("q");
+
   const history = useNavigate();
   const { id } = useParams();
   const scrollToTop = () => {
@@ -37,18 +40,78 @@ const Article = (props) => {
 
   useEffect(() => {
     article(id).then((result) => {
-      console.log(result);
       if (result !== "tidak ada article") {
-        setTitle(result.title);
-        setPublis(result.updated_at);
-        setSource(result.author);
-        setImg(result.foto);
-        setDeskripsi(result.deskripsi);
-        setContent(result.content);
-        // Ubah data blob ke tipe Uint8Array
-        setGambar1(result.foto1);
-        setGambar2(result.foto2);
-        setGambar3(result.foto3);
+        if (cari) {
+          const title = result.title.split(" ");
+
+          const titleAkhir = title.map((data) => {
+            if (data.toLowerCase().includes(cari.toLowerCase())) {
+              return `<span class="text-amber-500">${data}</span>`;
+            } else {
+              return data;
+            }
+          });
+          setTitle(titleAkhir.join(" "));
+          setPublis(result.updated_at);
+          setSource(result.author);
+          setImg(result.foto);
+          const deskripsi = result.deskripsi.split(" ");
+
+          const deskripsiAkhir = deskripsi.map((data) => {
+            if (data.toLowerCase().includes(cari.toLowerCase())) {
+              return `<span class="text-amber-500">${data}</span>`;
+            } else {
+              return data;
+            }
+          });
+          setDeskripsi(deskripsiAkhir.join(" "));
+
+          // const content = result.content.split(" ");
+
+          // const contentAkhir = content.map((data) => {
+          //   if (data.toLowerCase().includes(cari.toLowerCase())) {
+          //     return `<span class="text-amber-500">${data}</span>`;
+          //   } else {
+          //     return data;
+          //   }
+          // });
+          // setContent(contentAkhir.join(" "));
+          setContent(result.content);
+          const contentElement = document.getElementById("content");
+          let contentAkhir = [];
+          contentElement.querySelectorAll("*").forEach((data) => {
+            if (data.nodeName === "P") {
+              const contentText = data.textContent.split(" ");
+              const contentTextAkhir = contentText.map((item) => {
+                if (item.toLowerCase().includes(cari.toLowerCase())) {
+                  return `<span class="text-amber-200">${item}</span>`;
+                } else {
+                  return item;
+                }
+              });
+              contentAkhir.push("<p>" + contentTextAkhir.join(" ") + "</p>");
+            } else {
+              contentAkhir.push("<img src='" + data.src + "' />");
+            }
+          });
+
+          setContent(contentAkhir.join(" "));
+
+          setGambar1(result.foto1);
+          setGambar2(result.foto2);
+          setGambar3(result.foto3);
+        } else {
+          setTitle(result.title);
+          setPublis(result.updated_at);
+          setSource(result.author);
+          setImg(result.foto);
+          setDeskripsi(result.deskripsi);
+          setContent(result.content);
+          // Ubah data blob ke tipe Uint8Array
+          setGambar1(result.foto1);
+          setGambar2(result.foto2);
+          setGambar3(result.foto3);
+        }
       } else {
         console.log("gagal");
         history("/error");
@@ -63,7 +126,12 @@ const Article = (props) => {
           <div className=" min-h-screen flex items-center justify-center  ">
             <div className=" w-full mx-10 mt-24 ">
               <div>
-                <h1 className=" text-xl font-bold">{title}</h1>
+                <h1 className=" text-xl font-bold">
+                  <span
+                    className=""
+                    dangerouslySetInnerHTML={{ __html: title }}
+                  />
+                </h1>
                 <p className="text-lg">{publis}</p>
                 <p>source: {source}</p>
               </div>
@@ -77,11 +145,17 @@ const Article = (props) => {
                     />
                   </div>
 
-                  <span>{deskripsi}</span>
+                  <span>
+                    <span
+                      className=""
+                      dangerouslySetInnerHTML={{ __html: deskripsi }}
+                    />
+                  </span>
 
                   <div
-                    className="flex flex-col gap-3"
+                    className="flex flex-col"
                     dangerouslySetInnerHTML={{ __html: content }}
+                    id="content"
                   />
                 </div>
               </div>

@@ -9,8 +9,8 @@ const Notif = (props) => {
           !keluar ? "animate__slideInDown" : "animate__slideOutDown"
         }`}
       >
-        <div className="bg-info p-5 text-primary border border-spacing-4 border-primary rounded-lg">
-          <div>Notification</div>
+        <div className="bg-info p-5 text-primary border border-spacing-4 border-primary rounded-lg mt-20">
+          {!props.search && <div>Notification</div>}
           <div className="p-3 flex justify-center items-center">
             {props.text}
           </div>

@@ -1,16 +1,31 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { getBerita, getLoading, setSearch } from "../api";
 import { useEffect, useState } from "react";
 import TampilBerita from "../component/tampilBerita";
 import Pagination from "../component/pagination";
 
 const Search = () => {
-  const { cari } = useParams();
+  // const { cari } = useParams();
+  const location = useLocation();
   const [data, setData] = useState([]);
-  setSearch(cari);
+  const searchParams = new URLSearchParams(location.search);
+  const cari = searchParams.get("q");
+
   useEffect(() => {
     getBerita().then((result) => {
-      setData(result);
+      const filteredResults = result.data
+        .filter(
+          (item) =>
+            item.title.toLowerCase().includes(cari.toLowerCase()) ||
+            item.content.toLowerCase().includes(cari.toLowerCase()) ||
+            item.deskripsi.toLowerCase().includes(cari.toLowerCase())
+        )
+        .slice(0, 3);
+      if (filteredResults.length > 0) {
+        setData(filteredResults);
+      } else {
+        setData("Tidak ada Data");
+      }
     });
   }, []);
 
@@ -49,12 +64,14 @@ const Search = () => {
             <>
               <div className="p-1"></div>
               <div className="mt-24 w-full p-10 ">
-                <span className="text-3xl bg-primary p-4 text-info rounded-lg">
-                  Ada {data.length} Data untuk "{cari}"{" "}
-                </span>
+                <div className="bg-primary w-full text-xl sm:text-xl  p-4 text-info rounded-lg flex justify-center">
+                  <span className=" ">
+                    Ada {data.length} Data untuk "{cari}"{" "}
+                  </span>
+                </div>
               </div>
               <div className="">
-                <TampilBerita dataBerita={currentContent} />
+                <TampilBerita dataBerita={currentContent} q={cari} />
               </div>
               <div className="flex items-center justify-center">
                 <Pagination

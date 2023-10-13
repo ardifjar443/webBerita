@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getBerita, setNegara, setSearch } from "./api";
 import Berita from "./pages/berita";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./component/navbar";
 import Footer from "./component/Footer";
 import ScrollButton from "./component/scrollButton";
@@ -14,6 +12,7 @@ import Search from "./pages/search";
 import Upload from "./pages/uploadBerita";
 import CopyPasteComponent from "./component/copy";
 import NotFound from "./component/notFound";
+import SearchEngine from "./component/search";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -99,18 +98,33 @@ function App() {
           />
         </>
       )}
-      <Router>
+      <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<Berita dataBerita={dataBerita} error={error} />}
-          />
+          {isHtml ? (
+            <>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <div dangerouslySetInnerHTML={{ __html: html }}></div>
+                  </>
+                }
+              />
+            </>
+          ) : (
+            <Route
+              path="/"
+              element={<Berita dataBerita={dataBerita} error={error} />}
+            />
+          )}
           <Route path="/article/:id" element={<Article />} />
-          <Route path="/search/:cari" element={<Search />} />
-          <Route path="/upload" element={<Upload />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/upload" element={<Upload />}></Route>
           <Route path="*" element={<NotFound />} />
+
+          {/* <Route path="/error" element={<NotFound />} /> */}
         </Routes>
-      </Router>
+      </BrowserRouter>
       {!isHtml && (
         <>
           <CopyPasteComponent />

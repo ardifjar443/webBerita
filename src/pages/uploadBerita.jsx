@@ -68,29 +68,34 @@ const Upload = () => {
     // }
 
     UploadBerita(formDatas).then((result) => {
+      console.log(result);
       setText(
         <>
-          <div className="flex flex-col ">
+          {result !== "Anda tidak berada di Server" ? (
             <div className="flex flex-col ">
-              {result.errors.author && (
-                <div>-{" " + result.errors.author[0]}</div>
-              )}
-              {result.errors.deskripsi && (
-                <div>-{" " + result.errors.deskripsi[0]}</div>
-              )}
-              {result.errors.foto &&
-                result.errors.foto.map((item, index) => (
-                  <>
-                    <div key={index} className="flex">
-                      <div>- </div> <div>{"  " + item}</div>
-                    </div>
-                  </>
-                ))}
-              {result.errors.title && (
-                <div>-{" " + result.errors.title[0]}</div>
-              )}
+              <div className="flex flex-col ">
+                {result.errors.author && (
+                  <div>-{" " + result.errors.author[0]}</div>
+                )}
+                {result.errors.deskripsi && (
+                  <div>-{" " + result.errors.deskripsi[0]}</div>
+                )}
+                {result.errors.foto &&
+                  result.errors.foto.map((item, index) => (
+                    <>
+                      <div key={index} className="flex">
+                        <div>- </div> <div>{"  " + item}</div>
+                      </div>
+                    </>
+                  ))}
+                {result.errors.title && (
+                  <div>-{" " + result.errors.title[0]}</div>
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div>{result}</div>
+          )}
         </>
       );
       if (result === "Berhasil Menambahkan Berita!!") {

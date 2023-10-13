@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Notif from "./notif";
+import SearchEngine from "./search";
 
 const Navbar = (props) => {
   const [displayStyle, setDisplayStyle] = useState("block");
@@ -195,7 +196,12 @@ const Navbar = (props) => {
             </>
           )}
           {isNotif && (
-            <Notif text={cari} setIsNotif={setIsNotif} isNotif={isNotif} />
+            <Notif
+              text={<SearchEngine />}
+              setIsNotif={setIsNotif}
+              isNotif={isNotif}
+              search={true}
+            />
           )}
           {/* <div className="dropdown dropdown-end ">
             <label
