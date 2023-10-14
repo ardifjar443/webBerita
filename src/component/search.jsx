@@ -8,6 +8,12 @@ const SearchEngine = (props) => {
   const [loading1, setLoading1] = useState(false);
   const [search, setSearch] = useState([]);
   const navigate = useNavigate();
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     getBerita().then((result) => {
       setData(result.data);
@@ -19,6 +25,7 @@ const SearchEngine = (props) => {
       event.preventDefault();
       navigate(`/search?q=${query}`);
       props.setIsNotif(false);
+      scrollToTop();
     }
   };
   console.log(data);
@@ -68,7 +75,11 @@ const SearchEngine = (props) => {
                         <Link
                           key={index}
                           className="border-2 p-2 hover:bg-primary hover:text-info rounded-lg w-full min-w-full flex  animate__animated animate__bounceIn "
-                          to={`/article/${data.id}/${query}`}
+                          to={`/article/${data.id}?q=${query}`}
+                          onClick={() => {
+                            props.setIsNotif(false);
+                            scrollToTop();
+                          }}
                         >
                           {data.title}
                         </Link>
@@ -82,6 +93,10 @@ const SearchEngine = (props) => {
             <Link
               className="bg-primary w-full text-info hover:bg-info hover:text-primary p-2 rounded-md text-center border-2 border-primary"
               to={`/search?q=${query}`}
+              onClick={() => {
+                props.setIsNotif(false);
+                scrollToTop();
+              }}
             >
               Search
             </Link>
@@ -93,6 +108,7 @@ const SearchEngine = (props) => {
               to={`/search?q=${query}`}
               onClick={() => {
                 props.setIsNotif(false);
+                scrollToTop();
               }}
             >
               Lihat Semua Tentang {query}

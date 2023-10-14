@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Notif from "./notif";
 import { Link } from "react-router-dom";
+import SearchEngine from "./search";
 
 const NotFound = () => {
   const [isNotif, setIsNotif] = useState(false);
@@ -8,7 +9,7 @@ const NotFound = () => {
     <>
       <div className=" min-h-screen flex flex-col items-center justify-center">
         <div>
-          <h1 className=" text-3xl font-bold">
+          <h1 className=" text-3xl font-bold text-center">
             404 - Halaman Tidak Di Temukan
           </h1>
         </div>
@@ -35,18 +36,7 @@ const NotFound = () => {
         <Notif
           setIsNotif={setIsNotif}
           isNotif={isNotif}
-          text={
-            <div className="flex flex-col items-center">
-              <p>Maaf saat ini pencarian masih belum tersedia</p>
-              <p className="font-bold">masih dalam tahap development</p>
-              <Link
-                to="/"
-                className="p-2 bg-primary text-info hover:bg-info hover:text-primary rounded-lg"
-              >
-                Kembali Ke Halaman Utama
-              </Link>
-            </div>
-          }
+          text={<SearchEngine />}
         />
       )}
     </>
