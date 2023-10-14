@@ -28,7 +28,6 @@ const SearchEngine = (props) => {
       scrollToTop();
     }
   };
-  console.log(data);
 
   const Filter = (e) => {
     setLoading1(true);
@@ -71,7 +70,6 @@ const SearchEngine = (props) => {
                   <ul className="list-disc flex flex-col gap-1 w-full m-2 ">
                     {search.map((data, index) => (
                       <li className="w-full  ">
-                        {console.log(data.title)}
                         <Link
                           key={index}
                           className="border-2 p-2 hover:bg-primary hover:text-info rounded-lg w-full min-w-full flex  animate__animated animate__bounceIn "

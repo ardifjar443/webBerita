@@ -11,7 +11,10 @@ const CardBerita = (props) => {
   const [elapsedTime, setElapsedTime] = useState(null);
   const [title, setTitle] = useState(null);
   const [deskripsi, setDeskripsi] = useState(null);
+
   useEffect(() => {
+    setDeskripsi(props.data.deskripsi);
+    setTitle(props.data.title);
     const interval = setInterval(() => {
       const currentTime = new Date();
       const difference = Math.floor((currentTime - startTime) / 1000); // Perbedaan waktu dalam detik
@@ -39,7 +42,7 @@ const CardBerita = (props) => {
     }
 
     return () => clearInterval(interval); // Bersihkan interval saat komponen tidak lagi ter-render
-  }, [startTime]);
+  }, [startTime, props.q, props.data]);
 
   const handleMouseEnter = () => {
     if (isHovered) {
@@ -112,7 +115,7 @@ const CardBerita = (props) => {
                       dangerouslySetInnerHTML={{ __html: title }}
                     />
                   ) : (
-                    props.data.title
+                    title
                   )}
                 </h1>
               </div>
@@ -162,7 +165,7 @@ const CardBerita = (props) => {
                     dangerouslySetInnerHTML={{ __html: deskripsi }}
                   />
                 ) : (
-                  props.data.deskripsi
+                  deskripsi
                 )}
               </p>
             </div>

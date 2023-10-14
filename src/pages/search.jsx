@@ -10,11 +10,13 @@ const Search = () => {
   const [data, setData] = useState([]);
   const searchParams = new URLSearchParams(location.search);
   const cari = searchParams.get("q");
-  const { search } = useParams();
-  console.log(cari.toLowerCase());
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentContent, setCurrentContent] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
+
   useEffect(() => {
     getBerita().then((result) => {
-      console.log(result.data);
       const filteredResults = result.data
         .filter(
           (item) =>
@@ -24,21 +26,18 @@ const Search = () => {
         )
         .slice(0, 3);
       if (filteredResults.length > 0) {
-        setData(filteredResults);
+        const contentPerPage = 6;
+        const totalContent = filteredResults.length;
+        setTotalPages(Math.ceil(totalContent / contentPerPage));
+
+        const indexOfLastContent = currentPage * contentPerPage;
+        const indexOfFirstContent = indexOfLastContent - contentPerPage;
+        setData(filteredResults.slice(indexOfFirstContent, indexOfLastContent));
       } else {
         setData("Tidak ada Data");
       }
     });
-  }, []);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const contentPerPage = 6;
-  const totalContent = data.length;
-  const totalPages = Math.ceil(totalContent / contentPerPage);
-
-  const indexOfLastContent = currentPage * contentPerPage;
-  const indexOfFirstContent = indexOfLastContent - contentPerPage;
-  const currentContent = data.slice(indexOfFirstContent, indexOfLastContent);
+  }, [cari]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -73,7 +72,7 @@ const Search = () => {
                 </div>
               </div>
               <div className="">
-                <TampilBerita dataBerita={currentContent} q={cari} />
+                <TampilBerita dataBerita={data} q={cari} />
               </div>
               <div className="flex items-center justify-center">
                 <Pagination

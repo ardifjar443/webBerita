@@ -117,7 +117,7 @@ const Article = (props) => {
         history("/error");
       }
     });
-  }, []);
+  }, [search]);
 
   return (
     <>
