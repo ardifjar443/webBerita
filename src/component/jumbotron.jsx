@@ -2,8 +2,12 @@ import CarouselBerita from "./carousel";
 import { getLoading } from "../api";
 import React, { useState } from "react";
 import CardBerita from "./cardBerita";
+import { Link } from "react-router-dom";
+import Notif from "./notif";
+import Form from "./form";
 
 const Jumbtron = (props) => {
+  const [isNotif, setIsNotif] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [fade, setFade] = useState(false);
   let hoverTimeout;
@@ -133,6 +137,16 @@ const Jumbtron = (props) => {
             </p>
           </div>
         </div>
+        <div className="mt-7">
+          <button
+            className="bg-primary text-info hover:bg-info hover:text-primary p-3 rounded-xl  border-8 border-blue-600 "
+            onClick={() => {
+              setIsNotif(true);
+            }}
+          >
+            Jika Mendapatkan Error Click Tombol Ini
+          </button>
+        </div>
       </div>
       <div className="flex w-full p-10  items-center justify-center align-middle   ">
         {!getLoading() ? (
@@ -176,6 +190,9 @@ const Jumbtron = (props) => {
           </div>
         )}
       </div>
+      {isNotif && (
+        <Notif setIsNotif={setIsNotif} search={"form"} text={<Form />} />
+      )}
     </div>
   );
 };
