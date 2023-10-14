@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const Article = (props) => {
   const searchParams = new URLSearchParams(location.search);
-  const { search } = useParams();
+  const search = searchParams.get("q");
 
   const history = useNavigate();
   const { id } = useParams();

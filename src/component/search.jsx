@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { getBerita } from "../api";
+import { Link, useNavigate } from "react-router-dom";
 
-const SearchEngine = () => {
+const SearchEngine = (props) => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState(null);
   const [loading1, setLoading1] = useState(false);
   const [search, setSearch] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     getBerita().then((result) => {
       setData(result.data);
@@ -15,7 +17,8 @@ const SearchEngine = () => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter" || event.key === "Return") {
       event.preventDefault();
-      window.location.href = `/search/${query}`;
+      navigate(`/search?q=${query}`);
+      props.setIsNotif(false);
     }
   };
   console.log(data);
@@ -62,13 +65,13 @@ const SearchEngine = () => {
                     {search.map((data, index) => (
                       <li className="w-full  ">
                         {console.log(data.title)}
-                        <a
+                        <Link
                           key={index}
                           className="border-2 p-2 hover:bg-primary hover:text-info rounded-lg w-full min-w-full flex  animate__animated animate__bounceIn "
-                          href={`/article/${data.id}/${query}`}
+                          to={`/article/${data.id}/${query}`}
                         >
                           {data.title}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -76,23 +79,24 @@ const SearchEngine = () => {
               </>
             ))}
           {search.length === 0 && (
-            <a
+            <Link
               className="bg-primary w-full text-info hover:bg-info hover:text-primary p-2 rounded-md text-center border-2 border-primary"
-              href={`/search/${query}`}
+              to={`/search?q=${query}`}
             >
               Search
-            </a>
+            </Link>
           )}
 
           {search.length > 2 && query !== "" && (
-            <>
-              <a
-                className="bg-primary text-info hover:bg-info hover:text-primary p-2 rounded-lg border-2 border-primary animate__animated animate__bounceIn text-center "
-                href={`/search/${query}`}
-              >
-                Lihat Semua Tentang "{query}"
-              </a>
-            </>
+            <Link
+              className="bg-primary text-info hover:bg-info hover:text-primary p-2 rounded-lg border-2 border-primary animate__animated animate__bounceIn text-center "
+              to={`/search?q=${query}`}
+              onClick={() => {
+                props.setIsNotif(false);
+              }}
+            >
+              Lihat Semua Tentang {query}
+            </Link>
           )}
         </div>
       </div>

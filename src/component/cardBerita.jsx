@@ -178,7 +178,7 @@ const CardBerita = (props) => {
           >
             <Link
               className="w-full rounded-xl text-white font-bold text-center p-2 lg:p-10 bg-[#ff8906] hover:bg-[#ff8b06ec] "
-              to={`/article/${props.data.id}/${props.q}`}
+              to={`/article/${props.data.id}?q=${props.q}`}
               onClick={scrollToTop}
             >
               View News

@@ -54,7 +54,7 @@ const Navbar = (props) => {
               {import.meta.env.MODE === "development" && (
                 <div>
                   <div className="text-primary bg-info p-2 rounded-lg">
-                    <a href="/upload">Upload</a>
+                    <Link to="/upload">Upload</Link>
                   </div>
                 </div>
               )}
@@ -197,7 +197,7 @@ const Navbar = (props) => {
           )}
           {isNotif && (
             <Notif
-              text={<SearchEngine />}
+              text={<SearchEngine setIsNotif={setIsNotif} />}
               setIsNotif={setIsNotif}
               isNotif={isNotif}
               search={true}

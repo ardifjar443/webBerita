@@ -11,16 +11,16 @@ const Search = () => {
   const searchParams = new URLSearchParams(location.search);
   const cari = searchParams.get("q");
   const { search } = useParams();
-  console.log(search.toLowerCase());
+  console.log(cari.toLowerCase());
   useEffect(() => {
     getBerita().then((result) => {
       console.log(result.data);
       const filteredResults = result.data
         .filter(
           (item) =>
-            item.title.toLowerCase().includes(search.toLowerCase()) ||
-            item.content.toLowerCase().includes(search.toLowerCase()) ||
-            item.deskripsi.toLowerCase().includes(search.toLowerCase())
+            item.title.toLowerCase().includes(cari.toLowerCase()) ||
+            item.content.toLowerCase().includes(cari.toLowerCase()) ||
+            item.deskripsi.toLowerCase().includes(cari.toLowerCase())
         )
         .slice(0, 3);
       if (filteredResults.length > 0) {
@@ -73,7 +73,7 @@ const Search = () => {
                 </div>
               </div>
               <div className="">
-                <TampilBerita dataBerita={currentContent} q={search} />
+                <TampilBerita dataBerita={currentContent} q={cari} />
               </div>
               <div className="flex items-center justify-center">
                 <Pagination

@@ -98,34 +98,34 @@ function App() {
           />
         </>
       )}
-      <BrowserRouter>
-        <Routes>
-          {isHtml ? (
-            <>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <div dangerouslySetInnerHTML={{ __html: html }}></div>
-                  </>
-                }
-              />
-            </>
-          ) : (
+
+      <Routes>
+        {isHtml ? (
+          <>
             <Route
               path="/"
-              element={<Berita dataBerita={dataBerita} error={error} />}
+              element={
+                <>
+                  <div dangerouslySetInnerHTML={{ __html: html }}></div>
+                </>
+              }
             />
-          )}
-          <Route path="/article/:id" element={<Article />} />
-          <Route path="/article/:id/:search" element={<Article />} />
-          <Route path="/search/:search" element={<Search />} />
-          <Route path="/upload" element={<Upload />}></Route>
-          <Route path="*" element={<NotFound />} />
+          </>
+        ) : (
+          <Route
+            path="/"
+            element={<Berita dataBerita={dataBerita} error={error} />}
+          />
+        )}
+        <Route path="/article/:id" element={<Article />} />
+        <Route path="/article/:id/:search" element={<Article />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/upload" element={<Upload />}></Route>
+        <Route path="*" element={<NotFound />} />
 
-          {/* <Route path="/error" element={<NotFound />} /> */}
-        </Routes>
-      </BrowserRouter>
+        {/* <Route path="/error" element={<NotFound />} /> */}
+      </Routes>
+
       {!isHtml && (
         <>
           <CopyPasteComponent />
