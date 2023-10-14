@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const Article = (props) => {
   const searchParams = new URLSearchParams(location.search);
-  const cari = searchParams.get("q");
+  const { search } = useParams();
 
   const history = useNavigate();
   const { id } = useParams();
@@ -41,11 +41,11 @@ const Article = (props) => {
   useEffect(() => {
     article(id).then((result) => {
       if (result !== "tidak ada article") {
-        if (cari) {
+        if (search) {
           const title = result.title.split(" ");
 
           const titleAkhir = title.map((data) => {
-            if (data.toLowerCase().includes(cari.toLowerCase())) {
+            if (data.toLowerCase().includes(search.toLowerCase())) {
               return `<span class="text-amber-500">${data}</span>`;
             } else {
               return data;
@@ -58,7 +58,7 @@ const Article = (props) => {
           const deskripsi = result.deskripsi.split(" ");
 
           const deskripsiAkhir = deskripsi.map((data) => {
-            if (data.toLowerCase().includes(cari.toLowerCase())) {
+            if (data.toLowerCase().includes(search.toLowerCase())) {
               return `<span class="text-amber-500">${data}</span>`;
             } else {
               return data;
@@ -69,7 +69,7 @@ const Article = (props) => {
           // const content = result.content.split(" ");
 
           // const contentAkhir = content.map((data) => {
-          //   if (data.toLowerCase().includes(cari.toLowerCase())) {
+          //   if (data.toLowerCase().includes(search.toLowerCase())) {
           //     return `<span class="text-amber-500">${data}</span>`;
           //   } else {
           //     return data;
@@ -83,7 +83,7 @@ const Article = (props) => {
             if (data.nodeName === "P") {
               const contentText = data.textContent.split(" ");
               const contentTextAkhir = contentText.map((item) => {
-                if (item.toLowerCase().includes(cari.toLowerCase())) {
+                if (item.toLowerCase().includes(search.toLowerCase())) {
                   return `<span class="text-amber-200">${item}</span>`;
                 } else {
                   return item;

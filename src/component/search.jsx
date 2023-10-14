@@ -15,7 +15,7 @@ const SearchEngine = () => {
   const handleKeyPress = (event) => {
     if (event.key === "Enter" || event.key === "Return") {
       event.preventDefault();
-      window.location.href = `/search?q=${query}`;
+      window.location.href = `/search/${query}`;
     }
   };
   console.log(data);
@@ -65,7 +65,7 @@ const SearchEngine = () => {
                         <a
                           key={index}
                           className="border-2 p-2 hover:bg-primary hover:text-info rounded-lg w-full min-w-full flex  animate__animated animate__bounceIn "
-                          href={`/article/${data.id}`}
+                          href={`/article/${data.id}/${query}`}
                         >
                           {data.title}
                         </a>

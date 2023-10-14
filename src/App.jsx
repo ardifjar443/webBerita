@@ -118,7 +118,8 @@ function App() {
             />
           )}
           <Route path="/article/:id" element={<Article />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/article/:id/:search" element={<Article />} />
+          <Route path="/search/:search" element={<Search />} />
           <Route path="/upload" element={<Upload />}></Route>
           <Route path="*" element={<NotFound />} />
 
