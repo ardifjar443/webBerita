@@ -55,6 +55,9 @@ const Form = () => {
           <p className="text-center text-primary">
             terima kasih sudah mengirim masukan nya
           </p>
+          <p className="text-center text-primary">
+            maaf atas kekurangannya karena saya masih dalam tahap belajar
+          </p>
         </>
       ) : (
         <>
