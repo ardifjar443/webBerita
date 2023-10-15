@@ -42,6 +42,7 @@ const Article = (props) => {
     article(id).then((result) => {
       if (result !== "tidak ada article") {
         if (search) {
+          console.log("searching jalan", search);
           const title = result.title.split(" ");
 
           const titleAkhir = title.map((data) => {

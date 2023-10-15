@@ -13,6 +13,7 @@ import Upload from "./pages/uploadBerita";
 import CopyPasteComponent from "./component/copy";
 import NotFound from "./component/notFound";
 import SearchEngine from "./component/search";
+import Register from "./component/register";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -117,6 +118,7 @@ function App() {
             element={<Berita dataBerita={dataBerita} error={error} />}
           />
         )}
+        <Route path="/register" element={<Register />}></Route>
         <Route path="/article/:id" element={<Article />} />
 
         <Route path="/search" element={<Search />} />

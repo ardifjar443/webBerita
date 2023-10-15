@@ -8,9 +8,11 @@ let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
   try {
     const berita = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/data/data.json`
+      `${import.meta.env.VITE_BASE_URL}/api/berita`
     );
-
+    if (berita.data.length === 0) {
+      return { type: "json", data: "tidak ada data" };
+    }
     if (berita.headers["content-type"].includes("text/html")) {
       loading = false;
       return { type: "html", data: berita.data };
@@ -48,17 +50,19 @@ export const getUploadLoading = () => {
 };
 
 export const article = async (id) => {
+  console.log(id);
   // console.log("article: " + endPoint);
   const berita = await axios.get(
-    `${import.meta.env.VITE_BASE_URL}/data/data.json`
+    `${import.meta.env.VITE_BASE_URL}/api/berita/${id}`
   );
 
   loading = false;
-  if (berita.data.filter((item) => item.id.includes(id))[0] === undefined) {
-    return "tidak ada article";
-  }
+  // if (berita.data.filter((item) => item.id.includes(id))[0] === undefined) {
+  //   return "tidak ada article";
+  // }
 
-  return berita.data.filter((item) => item.id.includes(id))[0];
+  // return berita.data.filter((item) => item.id.includes(id))[0];
+  return berita.data;
 };
 
 export const setNegara = (id) => {
