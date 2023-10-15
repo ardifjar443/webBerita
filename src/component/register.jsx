@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Notif from "./notif";
 import { register } from "../user";
+import { button } from "@material-tailwind/react";
 
 const Register = () => {
   const [dataForm, setDataForm] = useState({
@@ -16,7 +17,13 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState("password");
   const [keluar, setKeluar] = useState(false);
   const [validate, setValidate] = useState(false);
-
+  const [hasil, setHasil] = useState(false);
+  const [textHasil, setTextHasil] = useState("");
+  const [error, setError] = useState(false);
+  const [password, setPassword] = useState(true);
+  const [moreError, setMoreError] = useState(null);
+  const [showError, setShowError] = useState(false);
+  const [showError1, setShowError1] = useState(false);
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
@@ -24,6 +31,7 @@ const Register = () => {
   const validasiPassword = (e) => {
     if (e.target.value === dataForm.password) {
       setValidatePassword(<></>);
+      setPassword(true);
     } else {
       setValidatePassword(
         <>
@@ -32,6 +40,7 @@ const Register = () => {
           </div>
         </>
       );
+      setPassword(false);
     }
   };
   const validasiEmail = (e) => {
@@ -50,18 +59,22 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
+    setShowPassword("password");
     if (dataForm.name === "") {
-      setIsNotif(true);
       setText("tolong masukan nama anda");
+      setIsNotif(true);
     } else if (dataForm.email === "") {
-      setIsNotif(true);
       setText("tolong masukan email anda");
+      setIsNotif(true);
     } else if (dataForm.password === "") {
-      setIsNotif(true);
       setText("tolong masukan password anda");
-    } else if (dataForm.password_confirmation === "") {
       setIsNotif(true);
+    } else if (dataForm.password_confirmation === "") {
       setText("tolong masukan validasi password");
+      setIsNotif(true);
+    } else if (!password) {
+      setText("tolong password harus sama ");
+      setIsNotif(true);
     } else {
       setIsNotif(true);
       setValidate(true);
@@ -69,13 +82,25 @@ const Register = () => {
   };
   const handleSubmitFinal = () => {
     const form = new FormData();
-    form.append("nama", dataForm.name);
+    form.append("name", dataForm.name);
     form.append("email", dataForm.email);
     form.append("password", dataForm.password);
     form.append("password_confirmation", dataForm.password_confirmation);
-    register(form);
-  };
+    register(form).then((response) => {
+      if (response === "Register Berhasil") {
+        setError(false);
+        setHasil(true);
+        setTextHasil(response);
+      } else {
+        setError(true);
+        setHasil(true);
+        setTextHasil(response.message);
 
+        setMoreError(response.errors);
+      }
+    });
+  };
+  console.log(moreError);
   return (
     <>
       <div className=" min-h-screen flex justify-center items-center">
@@ -110,7 +135,10 @@ const Register = () => {
               className="input input-bordered w-full "
               value={dataForm.password}
               name="password"
-              onChange={handleInputChange}
+              onChange={(e) => {
+                handleInputChange(e);
+                validasiPassword(e);
+              }}
             />
             {validatePassword}
             <input
@@ -146,7 +174,60 @@ const Register = () => {
           >
             <div className="bg-info p-5 text-primary border border-spacing-4 border-primary rounded-lg mt-20">
               <div className="p-3 flex justify-center items-center">
-                {validate ? (
+                {hasil ? (
+                  <div className="flex flex-col">
+                    <div>{textHasil}</div>
+                    <div>
+                      {Object.keys(moreError).length > 1 && (
+                        <div className="flex flex-col ">
+                          <button
+                            className={
+                              showError
+                                ? "bg-red-500 hover:bg-red-600 p-1 text-primary rounded-lg"
+                                : "bg-[#ff8906] hover:bg-[#c6781f] p-1 text-primary rounded-lg"
+                            }
+                            onClick={() => {
+                              if (showError) {
+                                setShowError(false);
+                                setShowError1(true);
+                                setTimeout(() => {
+                                  setShowError1(false);
+                                }, 500);
+                              } else {
+                                setShowError(true);
+                              }
+                            }}
+                          >
+                            {showError ? "show less error" : "show more error"}
+                          </button>
+                          {showError ? (
+                            <div className="animate__animated animate__bounceIn">
+                              {Object.entries(moreError).map(
+                                ([key, value], index) => (
+                                  <div key={index}>
+                                    - {key}:{value}
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          ) : showError1 ? (
+                            <div className="animate__animated animate__bounceOut">
+                              {Object.entries(moreError).map(
+                                ([key, value], index) => (
+                                  <div key={index}>
+                                    - {key}:{value}
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : validate ? (
                   <>
                     <div>
                       <h1>Validasi Ulang</h1>
@@ -205,19 +286,36 @@ const Register = () => {
                 )}
               </div>
               <div>
-                <button
-                  className="bg-primary w-full rounded-lg hover:bg-info border text-info hover:text-primary border-primary"
-                  onClick={() => {
-                    setKeluar(true);
-                    setTimeout(() => {
-                      setIsNotif(false);
-                      setKeluar(false);
-                      setValidate(false);
-                    }, 1000);
-                  }}
-                >
-                  Close
-                </button>
+                {hasil && !error ? (
+                  <button
+                    className="bg-primary w-full rounded-lg hover:bg-info border text-info hover:text-primary border-primary"
+                    onClick={() => {
+                      setKeluar(true);
+                      setTimeout(() => {
+                        setIsNotif(false);
+                        setKeluar(false);
+                        setValidate(false);
+                      }, 1000);
+                    }}
+                  >
+                    Login
+                  </button>
+                ) : (
+                  <button
+                    className="bg-primary w-full rounded-lg hover:bg-info border text-info hover:text-primary border-primary"
+                    onClick={() => {
+                      setKeluar(true);
+                      setTimeout(() => {
+                        setIsNotif(false);
+                        setKeluar(false);
+                        setValidate(false);
+                        setHasil(false);
+                      }, 1000);
+                    }}
+                  >
+                    Close
+                  </button>
+                )}
               </div>
             </div>
           </div>
