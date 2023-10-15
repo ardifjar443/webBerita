@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Notif from "./notif";
+import { register } from "../user";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
+  const [dataForm, setDataForm] = useState({
     name: "",
     email: "",
     password: "",
@@ -17,11 +18,11 @@ const Register = () => {
   const [validate, setValidate] = useState(false);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
 
   const validasiPassword = (e) => {
-    if (e.target.value === formData.password) {
+    if (e.target.value === dataForm.password) {
       setValidatePassword(<></>);
     } else {
       setValidatePassword(
@@ -49,22 +50,30 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
-    if (formData.name === "") {
+    if (dataForm.name === "") {
       setIsNotif(true);
       setText("tolong masukan nama anda");
-    } else if (formData.email === "") {
+    } else if (dataForm.email === "") {
       setIsNotif(true);
       setText("tolong masukan email anda");
-    } else if (formData.password === "") {
+    } else if (dataForm.password === "") {
       setIsNotif(true);
       setText("tolong masukan password anda");
-    } else if (formData.password_confirmation === "") {
+    } else if (dataForm.password_confirmation === "") {
       setIsNotif(true);
       setText("tolong masukan validasi password");
     } else {
       setIsNotif(true);
       setValidate(true);
     }
+  };
+  const handleSubmitFinal = () => {
+    const form = new FormData();
+    form.append("nama", dataForm.name);
+    form.append("email", dataForm.email);
+    form.append("password", dataForm.password);
+    form.append("password_confirmation", dataForm.password_confirmation);
+    register(form);
   };
 
   return (
@@ -79,7 +88,7 @@ const Register = () => {
               type="text"
               placeholder="username"
               className="input input-bordered w-full bg-base-100"
-              value={formData.name}
+              value={dataForm.name}
               name="name"
               onChange={handleInputChange}
             />
@@ -88,7 +97,7 @@ const Register = () => {
               type="email"
               placeholder="email"
               className="input input-bordered w-full "
-              value={formData.email}
+              value={dataForm.email}
               name="email"
               onChange={(e) => {
                 handleInputChange(e);
@@ -99,7 +108,7 @@ const Register = () => {
               type="password"
               placeholder="password"
               className="input input-bordered w-full "
-              value={formData.password}
+              value={dataForm.password}
               name="password"
               onChange={handleInputChange}
             />
@@ -108,7 +117,7 @@ const Register = () => {
               type="password"
               placeholder="Validasi password"
               className="input input-bordered w-full "
-              value={formData.password_confirmation}
+              value={dataForm.password_confirmation}
               name="password_confirmation"
               onChange={(e) => {
                 handleInputChange(e);
@@ -146,7 +155,7 @@ const Register = () => {
                           type="text"
                           placeholder="username"
                           className="input input-bordered w-full bg-base-100"
-                          value={formData.name}
+                          value={dataForm.name}
                           name="name"
                           readOnly
                         />
@@ -155,7 +164,7 @@ const Register = () => {
                           type="email"
                           placeholder="email"
                           className="input input-bordered w-full "
-                          value={formData.email}
+                          value={dataForm.email}
                           name="email"
                           readOnly
                         />
@@ -165,7 +174,7 @@ const Register = () => {
                             type={showPassword}
                             placeholder="password"
                             className="input input-bordered w-full "
-                            value={formData.password}
+                            value={dataForm.password}
                             name="password"
                             readOnly
                           />
@@ -181,8 +190,13 @@ const Register = () => {
                           >
                             show
                           </button>
-                          {console.log(showPassword)}
                         </div>
+                        <button
+                          className="bg-[#ff8906] hover:bg-[#c6781f] p-1 text-info rounded-lg"
+                          onClick={handleSubmitFinal}
+                        >
+                          Register
+                        </button>
                       </div>
                     </div>
                   </>
