@@ -154,7 +154,7 @@ const Article = (props) => {
                   </span>
 
                   <div
-                    className="flex flex-col gap-4"
+                    className="flex flex-col gap-6"
                     dangerouslySetInnerHTML={{ __html: content }}
                     id="content"
                   />
