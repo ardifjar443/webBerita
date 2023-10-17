@@ -18,17 +18,19 @@ const Notif = (props) => {
           {!props.search && <div>Notification</div>}
           <div className="p-3 flex justify-center items-center">{text}</div>
           <div>
-            <button
-              className="bg-primary w-full rounded-lg hover:bg-info border text-info hover:text-primary border-primary"
-              onClick={() => {
-                setKeluar(true);
-                setTimeout(() => {
-                  props.setIsNotif(false);
-                }, 1000);
-              }}
-            >
-              Close
-            </button>
+            {!props.kembali && (
+              <button
+                className="bg-primary w-full rounded-lg hover:bg-info border text-info hover:text-primary border-primary"
+                onClick={() => {
+                  setKeluar(true);
+                  setTimeout(() => {
+                    props.setIsNotif(false);
+                  }, 1000);
+                }}
+              >
+                Close
+              </button>
+            )}
           </div>
         </div>
       </div>

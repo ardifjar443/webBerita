@@ -14,6 +14,7 @@ import CopyPasteComponent from "./component/copy";
 import NotFound from "./component/notFound";
 import SearchEngine from "./component/search";
 import Register from "./component/register";
+import Login from "./component/login";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
@@ -124,6 +125,7 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/upload" element={<Upload />}></Route>
         <Route path="*" element={<NotFound />} />
+        <Route path="/login" element={<Login />}></Route>
 
         {/* <Route path="/error" element={<NotFound />} /> */}
       </Routes>

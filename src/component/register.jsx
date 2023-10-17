@@ -100,6 +100,7 @@ const Register = () => {
       }
     });
   };
+
   console.log(moreError);
   return (
     <>
