@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getBerita, setNegara, setSearch } from "./api";
 import Berita from "./pages/berita";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useAsyncError } from "react-router-dom";
 import Navbar from "./component/navbar";
 import Footer from "./component/Footer";
 import ScrollButton from "./component/scrollButton";
@@ -12,15 +12,17 @@ import Search from "./pages/search";
 import Upload from "./pages/uploadBerita";
 import CopyPasteComponent from "./component/copy";
 import NotFound from "./component/notFound";
-import SearchEngine from "./component/search";
+
 import Register from "./component/register";
 import Login from "./component/login";
+import { getToken, me } from "./user";
 
 function App() {
   const [dataBerita, setDataBerita] = useState([]);
   const [error, setError] = useState(null);
   const [isHtml, setIsHtml] = useState(false);
   const [html, setHtml] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     getBerita().then((result) => {
       if (result.type === "html") {
@@ -69,6 +71,19 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const token = getToken();
+
+  useEffect(() => {
+    me(getToken()).then((response) => {
+      if (response.statusText === "OK") {
+        setIsLogin(true);
+        console.log(response.statusText);
+      } else {
+        setIsLogin(false);
+        console.log(response.statusText);
+      }
+    });
+  }, [token, getToken()]);
 
   const [cari, setCari] = useState("");
 
@@ -97,6 +112,7 @@ function App() {
             iconLight={iconLight}
             cari={cari}
             setCari={setCari}
+            isLogin={isLogin}
           />
         </>
       )}

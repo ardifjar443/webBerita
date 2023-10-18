@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Notif from "./notif";
 import SearchEngine from "./search";
+import { logout } from "../user";
 
 const Navbar = (props) => {
   const [displayStyle, setDisplayStyle] = useState("block");
   const [displayStyle2, setDisplayStyle2] = useState("");
   const [isNotif, setIsNotif] = useState(false);
-
+  const [cari1, setCari1] = useState(false);
+  const [text, setText] = useState("");
   useEffect(() => {
     if (props.isVisible) {
       setDisplayStyle2("form-control animate__animated  animate__bounceOut");
@@ -51,13 +53,6 @@ const Navbar = (props) => {
         <div className=" w-full justify-end gap-2 ">
           {!props.isVisible ? (
             <>
-              {import.meta.env.MODE === "development" && (
-                <div>
-                  <div className="text-primary bg-info p-2 rounded-lg">
-                    <Link to="/upload">Upload</Link>
-                  </div>
-                </div>
-              )}
               {/* <div className={displayStyle2}>
                 <input
                   type="text"
@@ -83,6 +78,7 @@ const Navbar = (props) => {
                   className="btn text-info hover:text-primary-focus bg-primary hover:bg-info"
                   // href={`/search/${cari}`}
                   onClick={() => {
+                    setCari1(true);
                     setIsNotif(true);
                   }}
                 >
@@ -197,37 +193,60 @@ const Navbar = (props) => {
           )}
           {isNotif && (
             <Notif
-              text={<SearchEngine setIsNotif={setIsNotif} />}
+              text={cari1 ? <SearchEngine setIsNotif={setIsNotif} /> : text}
               setIsNotif={setIsNotif}
-              isNotif={isNotif}
-              search={true}
+              search={cari1}
             />
           )}
-          {/* <div className="dropdown dropdown-end ">
-            <label
-              tabIndex={0}
-              className="btn btn-ghost btn-circle avatar bg-white"
-            >
-              <div className="w-10  "></div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div> */}
+          {import.meta.env.MODE === "development" && (
+            <div className="dropdown dropdown-end ">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle avatar bg-white"
+              >
+                <div className="w-10  "></div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              >
+                {props.isLogin && (
+                  <li>
+                    <a className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                )}
+                {!props.isLogin && (
+                  <>
+                    <li>
+                      <Link to="/login">Log in</Link>
+                    </li>
+                    <li>
+                      <a>Register</a>
+                    </li>
+                  </>
+                )}
+                {props.isLogin && (
+                  <li>
+                    <button
+                      onClick={() => {
+                        setCari1(false);
+
+                        setIsNotif(true);
+                        logout().then((response) => {
+                          setText(response.data.message);
+                        });
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>
