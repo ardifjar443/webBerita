@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Notif from "./notif";
 import SearchEngine from "./search";
 import { logout } from "../user";
+import { AuthContext } from "./AuthContext";
 
 const Navbar = (props) => {
   const [displayStyle, setDisplayStyle] = useState("block");
@@ -10,6 +11,8 @@ const Navbar = (props) => {
   const [isNotif, setIsNotif] = useState(false);
   const [cari1, setCari1] = useState(false);
   const [text, setText] = useState("");
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   useEffect(() => {
     if (props.isVisible) {
       setDisplayStyle2("form-control animate__animated  animate__bounceOut");
@@ -210,7 +213,7 @@ const Navbar = (props) => {
                 tabIndex={0}
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
-                {props.isLogin && (
+                {isLoggedIn && (
                   <li>
                     <a className="justify-between">
                       Profile
@@ -218,7 +221,7 @@ const Navbar = (props) => {
                     </a>
                   </li>
                 )}
-                {!props.isLogin && (
+                {!isLoggedIn && (
                   <>
                     <li>
                       <Link to="/login">Log in</Link>
@@ -228,11 +231,12 @@ const Navbar = (props) => {
                     </li>
                   </>
                 )}
-                {props.isLogin && (
+                {isLoggedIn && (
                   <li>
                     <button
                       onClick={() => {
                         setCari1(false);
+                        setIsLoggedIn(false);
 
                         setIsNotif(true);
                         logout().then((response) => {

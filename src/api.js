@@ -10,7 +10,7 @@ export const getBerita = async () => {
   if (import.meta.env.MODE === "development") {
     try {
       const berita = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/berita`
+        `${import.meta.env.VITE_BASE_URL}/api/beritas`
       );
       if (berita.data.length === 0) {
         return { type: "json", data: "tidak ada data" };

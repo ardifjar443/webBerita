@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { login } from "../user";
 import Notif from "./notif";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 const Login = () => {
   const [dataForm, setDataForm] = useState({
@@ -13,6 +14,8 @@ const Login = () => {
   const [isNotif, setIsNotif] = useState(false);
   const [text, setText] = useState("");
   const [kembali, setKembali] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
@@ -30,6 +33,7 @@ const Login = () => {
     form.append("password", dataForm.password);
     login(form).then((response) => {
       if (response === "OK") {
+        setIsLoggedIn(true);
         setKembali(false);
         setText(
           <>

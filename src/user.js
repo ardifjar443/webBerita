@@ -18,8 +18,6 @@ export const register = async (form) => {
   } catch (error) {
     return error.response.data;
   }
-
-  console.log(user);
 };
 
 export const login = async (form) => {
@@ -30,6 +28,7 @@ export const login = async (form) => {
     );
     console.log(user);
     setToken(user.data.access_token);
+    localStorage.setItem("token", user.data.access_token);
     return user.statusText;
   } catch (error) {
     console.log(error);
@@ -37,10 +36,10 @@ export const login = async (form) => {
   }
 };
 
-export const me = async (token) => {
+export const me = async () => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
 
@@ -50,8 +49,10 @@ export const me = async (token) => {
       null,
       config
     );
+    console.log(user);
     return user;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
@@ -59,7 +60,7 @@ export const me = async (token) => {
 export const logout = async () => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   };
   try {
@@ -68,7 +69,7 @@ export const logout = async () => {
       null,
       config
     );
-    setToken("");
+    localStorage.setItem("token", null);
 
     return user;
   } catch (error) {
