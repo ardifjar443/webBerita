@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     console.log(localStorage.getItem("token"));
 
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") !== "null") {
       me().then((response) => {
         if (response.statusText === "OK") {
           setIsLoggedIn(true);
@@ -16,8 +16,10 @@ export const AuthProvider = ({ children }) => {
           setIsLoggedIn(false);
         }
       });
+    } else {
+      setIsLoggedIn(false);
     }
-  }, [localStorage.getItem("token")]);
+  }, [localStorage.getItem("token"), isLoggedIn]);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>

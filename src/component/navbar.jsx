@@ -237,7 +237,6 @@ const Navbar = (props) => {
                       onClick={() => {
                         setCari1(false);
                         setIsLoggedIn(false);
-
                         setIsNotif(true);
                         logout().then((response) => {
                           setText(response.data.message);
