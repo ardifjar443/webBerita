@@ -1,13 +1,43 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UploadBerita, getLoading, getUploadLoading } from "../api";
 import Notif from "../component/notif";
-import { json } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import { data } from "autoprefixer";
+import { AuthContext } from "../component/AuthContext";
 
 const Upload = () => {
   const [isNotif, setIsNotif] = useState(false);
   const [text, setText] = useState("");
   const [lengkap, setLengkap] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsNotif(true);
+      setText(
+        <>
+          <div className="flex flex-col items-center justify-center gap-2">
+            <h1 className="text-center">
+              Anda Harus Login sebagai admin terlebih dahulu
+            </h1>
+            <Link
+              className="bg-[#ff8906] hover:bg-[#c6781f] w-full text-center p-2 rounded-lg text-info"
+              to={"/login"}
+            >
+              Login
+            </Link>
+            <Link
+              className="bg-primary hover:bg-info w-full text-center p-2 rounded-lg text-info"
+              to={"/"}
+            >
+              Kembali Ke Menu Utama
+            </Link>
+          </div>
+        </>
+      );
+    }
+  }, [isLoggedIn]);
+
   const [formData, setFormData] = useState({
     author: "",
     title: "",
@@ -306,7 +336,14 @@ const Upload = () => {
           </div>
         </div>
       </div>
-      {isNotif && <Notif setIsNotif={setIsNotif} text={text} />}
+      {isNotif && (
+        <Notif
+          setIsNotif={setIsNotif}
+          text={text}
+          search={!isLoggedIn}
+          kembali={!isLoggedIn}
+        />
+      )}
     </>
   );
 };

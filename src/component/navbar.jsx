@@ -49,9 +49,9 @@ const Navbar = (props) => {
         style={{ transition: "1s" }}
       >
         <div className="flex items-start p-2 titleWeb ">
-          <a className="btn btn-ghost normal-case text-xl text-info" href="/">
+          <Link className="btn btn-ghost normal-case text-xl text-info" to="/">
             ArdiFjar443
-          </a>
+          </Link>
         </div>
         <div className=" w-full justify-end gap-2 ">
           {!props.isVisible ? (
@@ -214,12 +214,31 @@ const Navbar = (props) => {
                 className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
                 {isLoggedIn && (
-                  <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
-                  </li>
+                  <>
+                    <li>
+                      <a className="justify-between">
+                        Profile
+                        <span className="badge">New</span>
+                      </a>
+                    </li>
+                    <li>
+                      <Link to={"/upload"}>Upload</Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => {
+                          setCari1(false);
+                          setIsLoggedIn(false);
+                          setIsNotif(true);
+                          logout().then((response) => {
+                            setText(response.data.message);
+                          });
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
                 )}
                 {!isLoggedIn && (
                   <>
@@ -230,22 +249,6 @@ const Navbar = (props) => {
                       <a>Register</a>
                     </li>
                   </>
-                )}
-                {isLoggedIn && (
-                  <li>
-                    <button
-                      onClick={() => {
-                        setCari1(false);
-                        setIsLoggedIn(false);
-                        setIsNotif(true);
-                        logout().then((response) => {
-                          setText(response.data.message);
-                        });
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>
                 )}
               </ul>
             </div>
