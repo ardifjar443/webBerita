@@ -82,7 +82,7 @@ export const article = async (id) => {
   if (import.meta.env.MODE === "development") {
     // console.log("article: " + endPoint);
     const berita = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/api/berita/${id}`
+      `${import.meta.env.VITE_BASE_URL}/api/beritas/${id}`
     );
 
     loading = false;
