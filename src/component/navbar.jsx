@@ -246,7 +246,7 @@ const Navbar = (props) => {
                       <Link to="/login">Log in</Link>
                     </li>
                     <li>
-                      <a>Register</a>
+                      <Link to="/register">Register</Link>
                     </li>
                   </>
                 )}

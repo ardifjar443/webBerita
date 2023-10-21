@@ -37,7 +37,11 @@ function App() {
             console.log(result.data);
             setError(result.data);
           } else {
-            setDataBerita(result.data.reverse());
+            if (import.meta.env.MODE === "development") {
+              setDataBerita(result.data);
+            } else {
+              setDataBerita(result.data.reverse());
+            }
           }
         } else {
           setError(result);

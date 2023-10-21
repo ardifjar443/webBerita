@@ -86,6 +86,7 @@ const Register = () => {
     form.append("email", dataForm.email);
     form.append("password", dataForm.password);
     form.append("password_confirmation", dataForm.password_confirmation);
+    console.log("berhasil");
     register(form).then((response) => {
       if (response === "Register Berhasil") {
         setError(false);
@@ -101,7 +102,7 @@ const Register = () => {
     });
   };
 
-  console.log(moreError);
+  console.log(moreError === null);
   return (
     <>
       <div className=" min-h-screen flex justify-center items-center">
@@ -179,53 +180,56 @@ const Register = () => {
                   <div className="flex flex-col">
                     <div>{textHasil}</div>
                     <div>
-                      {Object.keys(moreError).length > 1 && (
-                        <div className="flex flex-col ">
-                          <button
-                            className={
-                              showError
-                                ? "bg-red-500 hover:bg-red-600 p-1 text-primary rounded-lg"
-                                : "bg-[#ff8906] hover:bg-[#c6781f] p-1 text-primary rounded-lg"
-                            }
-                            onClick={() => {
-                              if (showError) {
-                                setShowError(false);
-                                setShowError1(true);
-                                setTimeout(() => {
-                                  setShowError1(false);
-                                }, 500);
-                              } else {
-                                setShowError(true);
+                      {moreError !== null &&
+                        Object.keys(moreError).length > 1 && (
+                          <div className="flex flex-col ">
+                            <button
+                              className={
+                                showError
+                                  ? "bg-red-500 hover:bg-red-600 p-1 text-primary rounded-lg"
+                                  : "bg-[#ff8906] hover:bg-[#c6781f] p-1 text-primary rounded-lg"
                               }
-                            }}
-                          >
-                            {showError ? "show less error" : "show more error"}
-                          </button>
-                          {showError ? (
-                            <div className="animate__animated animate__bounceIn">
-                              {Object.entries(moreError).map(
-                                ([key, value], index) => (
-                                  <div key={index}>
-                                    - {key}:{value}
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          ) : showError1 ? (
-                            <div className="animate__animated animate__bounceOut">
-                              {Object.entries(moreError).map(
-                                ([key, value], index) => (
-                                  <div key={index}>
-                                    - {key}:{value}
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      )}
+                              onClick={() => {
+                                if (showError) {
+                                  setShowError(false);
+                                  setShowError1(true);
+                                  setTimeout(() => {
+                                    setShowError1(false);
+                                  }, 500);
+                                } else {
+                                  setShowError(true);
+                                }
+                              }}
+                            >
+                              {showError
+                                ? "show less error"
+                                : "show more error"}
+                            </button>
+                            {showError ? (
+                              <div className="animate__animated animate__bounceIn">
+                                {Object.entries(moreError).map(
+                                  ([key, value], index) => (
+                                    <div key={index}>
+                                      - {key}:{value}
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            ) : showError1 ? (
+                              <div className="animate__animated animate__bounceOut">
+                                {Object.entries(moreError).map(
+                                  ([key, value], index) => (
+                                    <div key={index}>
+                                      - {key}:{value}
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        )}
                     </div>
                   </div>
                 ) : validate ? (

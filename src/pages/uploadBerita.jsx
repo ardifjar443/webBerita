@@ -39,7 +39,6 @@ const Upload = () => {
   }, [isLoggedIn]);
 
   const [formData, setFormData] = useState({
-    author: "",
     title: "",
     deskripsi: "",
     content: "",
@@ -62,7 +61,7 @@ const Upload = () => {
   const handleSubmit = () => {
     setText(<span className="loading loading-spinner loading-lg"></span>);
     const formDatas = new FormData();
-    formDatas.append("author", formData.author);
+
     formDatas.append("title", formData.title);
     formDatas.append("deskripsi", formData.deskripsi);
 
@@ -101,7 +100,7 @@ const Upload = () => {
       console.log(result);
       setText(
         <>
-          {result !== "Anda tidak berada di Server" ? (
+          {result.errors ? (
             <div className="flex flex-col ">
               <div className="flex flex-col ">
                 {result.errors.author && (
@@ -123,6 +122,8 @@ const Upload = () => {
                 )}
               </div>
             </div>
+          ) : result.error ? (
+            <div>{result.error}</div>
           ) : (
             <div>{result}</div>
           )}
@@ -191,7 +192,7 @@ const Upload = () => {
         <div className="bg-primary text-info p-3 rounded-lg shadow-md w-3/4 flex flex-col mt-24 mb-10 ">
           <div>Upload Berita</div>
           <div className="">
-            <div className="form-control w-full ">
+            {/* <div className="form-control w-full ">
               <label className="label">
                 <span className="label-text text-info">
                   Author?<span className="text-red-500">*</span>
@@ -205,7 +206,7 @@ const Upload = () => {
                 value={formData.author}
                 onChange={handleInputChange}
               />
-            </div>
+            </div> */}
             <div className="m-5">
               <label className="label">
                 <span>

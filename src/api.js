@@ -2,11 +2,9 @@ import axios from "axios";
 
 let loading = true;
 let upload = false;
-let pesan = "berhasil";
 
 let endPoint = "/top-headlines?country=us";
 export const getBerita = async () => {
-  let endPoint;
   if (import.meta.env.MODE === "development") {
     try {
       const berita = await axios.get(
@@ -116,9 +114,18 @@ export const setNegara = (id) => {
 export const UploadBerita = async (form) => {
   upload = true;
   console.log(form);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
 
   try {
-    const uploads = await axios.post(`http://localhost:8000/api/berita`, form);
+    const uploads = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/api/auth/beritas`,
+      form,
+      config
+    );
     upload = false;
     console.log(uploads);
     return "Berhasil Menambahkan Berita!!";
