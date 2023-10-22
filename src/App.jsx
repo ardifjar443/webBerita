@@ -32,10 +32,13 @@ function App() {
         setHtml(result.data);
       } else {
         setIsHtml(false);
+        console.log(result);
         if (result.code !== "ERR_BAD_REQUEST") {
           if (result.data === "tidak ada data") {
             console.log(result.data);
             setError(result.data);
+          } else if (result.code === "ERR_NETWORK") {
+            setError("Server sedang Offline");
           } else {
             if (import.meta.env.MODE === "development") {
               setDataBerita(result.data);
