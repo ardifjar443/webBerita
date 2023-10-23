@@ -1,8 +1,8 @@
 {
-  "routes": [
+  "REWRITES": [
     {
-      "src": "/(.*)",
-      "dest": "/build/$1"
+      "SOURCE": "/(.*)",
+      "DESTINATION": "/"
     }
   ]
 }
