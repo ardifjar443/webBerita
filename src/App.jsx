@@ -38,7 +38,7 @@ function App() {
             console.log(result.data);
             setError(result.data);
           } else if (result.code === "ERR_NETWORK") {
-            setError("Server sedang Offline");
+            setError("Server Sedang offline \n Mohon untuk Hubungin Admin");
           } else if (result.code === "ERR_BAD_RESPONSE") {
             setError("Database sedang Offline");
           } else {
