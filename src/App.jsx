@@ -40,7 +40,7 @@ function App() {
           } else if (result.code === "ERR_NETWORK") {
             setError("Server Sedang offline \n Mohon untuk Hubungin Admin");
           } else if (result.code === "ERR_BAD_RESPONSE") {
-            setError("Database sedang Offline");
+            setError("Database sedang Offline \n Mohon untuk Hubungin Admin");
           } else {
             if (import.meta.env.MODE === "development") {
               setDataBerita(result.data);
